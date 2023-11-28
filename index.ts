@@ -13,17 +13,21 @@ import usersRoute from "./routes/usersRoute"
 import ordersRoute from "./routes/ordersRoute"
 import { connectDb } from "./utils/connectDb"
 import server from "./utils/server"
+
+
 const PORT = 8080;
 const app = express();
 app.use(express.json());
 
-//connectDb();
+connectDb();
+
 app.use(passport.initialize())
 passport.use(loginWithGoogle())
-//connectDb();
+
 app.get("/hello", loggingMiddleware, (_, res) => {
   res.json({ msg: "hello, from Express.js!" });
 });
+
 app.use(loggingMiddleware);
 app.use("/api/v1/categories", categoriesRoute);
 app.use("/api/v1/users", usersRoute);
@@ -33,8 +37,8 @@ app.use("/api/v1/orders", ordersRoute);
 app.use(apiErrorHandler);
 app.use(routeNotFound);
 
-// app.listen(PORT, () => {
-//   console.log(`👀 app is running at localhost:${PORT}`);
-// });
+app.listen(PORT, () => {
+  console.log(`👀 app is running at localhost:${PORT}`);
+});
 
 export default app;
