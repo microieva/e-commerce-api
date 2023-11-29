@@ -1,6 +1,7 @@
 import express from "express"
 import mongoose from "mongoose"
 import "dotenv/config"
+import cors from 'cors'
 import passport from "passport"
 import { loggingMiddleware } from "./middlewares/logging"
 import { apiErrorHandler } from "./middlewares/error"
@@ -18,6 +19,7 @@ import server from "./utils/server"
 const PORT = 8080;
 const app = express();
 app.use(express.json());
+app.use(cors())
 
 connectDb();
 
