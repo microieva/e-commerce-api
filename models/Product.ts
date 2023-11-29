@@ -1,7 +1,6 @@
 import mongoose from "mongoose"
 
 const Schema = mongoose.Schema
-const ObjectId = Schema.ObjectId
 
 const ProductSchema = new Schema({
   title: String,
@@ -14,4 +13,4 @@ const ProductSchema = new Schema({
   images: [{ type: String }]
 })
 
-export default mongoose.model("Product", ProductSchema)
+export default mongoose.model("Product", ProductSchema, "products")

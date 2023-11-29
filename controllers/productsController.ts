@@ -4,9 +4,8 @@ import ProductsService from "../services/productsService"
 import { ApiError } from "../errors/ApiError"
 
 export async function findAllProduct(_: Request, res: Response) {
-  const products = await ProductsService.findAll()
-
-  res.json({ products })
+  const data = await ProductsService.findAll()
+  res.json({ data })
 }
 
 export async function findOneProduct(

@@ -118,7 +118,7 @@ async function updateUser(
   ) {
     const id = req.params.userId;
     const userData = req.body;
-    const user = UsersService.getUserById(id);
+    const user = await UsersService.getUserById(id);
     if (!user) {
       next(ApiError.resourceNotFound("User not found"));
       return;
@@ -138,7 +138,7 @@ async function deleteUser(
       next(ApiError.resourceNotFound("User that you are trying to delete does not exist")); 
       return;
     }
-    UsersService.deleteUser(id);
+    await UsersService.deleteUser(id);
     const deletedUser = await UsersService.getUserById(id);
     if (deletedUser !== null) {
       next(ApiError.internal("Deleting failed")); 

@@ -1,11 +1,9 @@
-import request from "supertest";
-import app from "../../"; // Assuming this is your Express application instance
 import connect, { MongoHelper } from "../dbHelper";
 import CategoryRepo from "../../models/Category";
 import categoriesService from "../../services/categoriesService";
 import mongoose from "mongoose";
 
-describe("Category controller", () => {
+describe("Category controllers", () => {
   let mongoHelper: MongoHelper;
   let categoryOne: mongoose.Document;
 
@@ -16,7 +14,7 @@ describe("Category controller", () => {
   beforeEach(async () => {
     const categoryInstance = new CategoryRepo({
       name: "Electronics",
-      description: "Electronic gadgets and devices",
+      image: "https://api.lorem.space/image/fashion?w=640&h=480&r=4278",
     });
 
     categoryOne = await categoryInstance.save();
@@ -33,7 +31,7 @@ describe("Category controller", () => {
   it("should create a new category", async () => {
     const categoryData = {
       name: "Clothing",
-      description: "Clothing and apparel",
+      image: "https://api.lorem.space/image/fashion?w=640&h=480&r=4278",
     };
 
     const newCategory = await categoriesService.createCategory(categoryData);
@@ -52,8 +50,8 @@ describe("Category controller", () => {
       categoryOne._id.toString()
     );
     expect(foundCategory?.name).toEqual("Electronics");
-    expect(foundCategory?.description).toEqual(
-      "Electronic gadgets and devices"
+    expect(foundCategory?.image).toEqual(
+      "https://api.lorem.space/image/fashion?w=640&h=480&r=4278"
     );
   });
 

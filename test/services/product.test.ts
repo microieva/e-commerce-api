@@ -21,33 +21,33 @@ describe("Category controller", () => {
   beforeEach(async () => {
     const categoryInstance = new CategoryRepo({
       name: "Clothes",
-      description: "Clothes description"
+      image: "https://api.lorem.space/image/fashion?w=640&h=480&r=4278"
     });
 
-    category = await categoryInstance.save();
+    const category = await categoryInstance.save();
     const firstHoody = new ProductRepo({
-      title: "Hoody1",
+      title: "Hoodie1",
       price: 150,
       description: "Cool hoodie for your good boy",
-      categoryId: category._id,
+      categoryId: category.id,
       images: [
           "https://i.imgur.com/p8AjjXS.jpeg"
       ]
     });
     const secondHoody = new ProductRepo({
-      name: "Hoody2",
+      name: "Hoodie2",
       description: "Cool hoodie for your good boy",
       price: 80,
-      categoryId: category._id,
+      categoryId: category.id,
       images: [
         "https://i.imgur.com/p8AjjXS.jpeg"
     ]
     });
     const thirdHoody = new ProductRepo({
-      name: "Hoody3",
+      name: "Hoodie3",
       description: "Cool hoodie for your good boy",
       price: 54,
-      categoryId: category._id,
+      categoryId: category.id,
       images: [
         "https://i.imgur.com/p8AjjXS.jpeg"
       ]
@@ -74,7 +74,7 @@ describe("Category controller", () => {
         title: "Another Hoody",
         price: 150,
         description: "Another hoodie for your good boy",
-        categoryId: category._id.toString(),
+        categoryId: category.id.toString(),
         images: [
             "https://i.imgur.com/p8AjjXS.jpeg"
         ]
@@ -100,9 +100,9 @@ describe("Category controller", () => {
   it("should update product", async () => {
     const updatedProduct = await productsService.updateOne(
       productOne._id.toString(),
-      { title: "Fantastic Hoody" }
+      { title: "Fantastic Hoodie" }
     );
-    expect(updatedProduct?.title).toEqual("Fantastic Hoody");
+    expect(updatedProduct?.title).toEqual("Fantastic Hoodie");
   });
 
   it("should delete one product", async () => {

@@ -7,10 +7,11 @@ const CategorySchema = new Schema({
     type: String,
     required: true,
   },
-  description: {
+  image: {
     type: String,
-    required: true,
-  },
+    //required: true,
+    default: "https://api.lorem.space/image/fashion?w=640&h=480&r=4278"
+  }
 });
 
-export default mongoose.model("Category", CategorySchema);
+export default mongoose.model("Category", CategorySchema, "categories");
