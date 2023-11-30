@@ -1,22 +1,26 @@
 import mongoose from "mongoose";
 
-import ProductRepo from "../models/Product";
+import ProductsRepo from "../models/Product";
 import { Product, ProductDTO, ProductToCreate } from "../types/products";
 import CategoryRepo from "../models/Category";
 import { Category } from "../types/category";
 import { OrderRequest } from "../types/orderRequest";
 
-async function findAll() {
-  const products = await ProductRepo.find().populate("category").exec();
-  
+async function getAllProducts() {
+  const products = await ProductsRepo.find().populate("category").exec(); 
   return products;
 }
 
 async function findOne(productId: string) {
   const id = new mongoose.Types.ObjectId(productId);
-  const product = await ProductRepo.findById(id).populate("category");
+  const product = await ProductsRepo.findById(id).populate("category");
 
   return product;
+}
+
+async function getFilteredProductsByTitle(title: string) {
+  const filteredData = await ProductsRepo.find({ title: { $regex: new RegExp(title, 'i') } });
+  return filteredData;
 }
 
 async function createOne(product: ProductToCreate) {
@@ -26,7 +30,7 @@ async function createOne(product: ProductToCreate) {
   if (category) {
     delete product.categoryId;
     const newProduct: ProductDTO = {...product, category: category};
-    const responseProduct = new ProductRepo(newProduct);
+    const responseProduct = new ProductsRepo(newProduct);
     return await responseProduct.save();
   }
   return null;
@@ -52,7 +56,7 @@ async function updateOne(
     }
   }
 
-  const result = await ProductRepo.updateOne(
+  const result = await ProductsRepo.updateOne(
     { _id: id },
     { $set: !!updatesWithCategory ? updatesWithCategory : updatesForProductInput }
   );
@@ -60,14 +64,14 @@ async function updateOne(
   if (!result) {
     return null;
   }
-  return await ProductRepo.findById(id);
+  return await ProductsRepo.findById(id);
 }
 
 async function getTotalPrice(
   orderItems: OrderRequest[]
 ): Promise<number>{
   const inputIds = orderItems.map((item) => item.id);
-  const products = await ProductRepo.find({_id: inputIds});
+  const products = await ProductsRepo.find({_id: inputIds});
   const sum = products.reduce((acc, product) => {
     const inputTargetItem = orderItems.find((item) =>
       product._id.equals(item.id)
@@ -84,12 +88,13 @@ async function getTotalPrice(
 
 async function deleteOne(productId: string) {
   const id = new mongoose.Types.ObjectId(productId);
-  return await ProductRepo.findByIdAndDelete(id).populate("category");
+  return await ProductsRepo.findByIdAndDelete(id).populate("category");
 }
 
 export default {
+  getAllProducts,
   findOne,
-  findAll,
+  getFilteredProductsByTitle,
   createOne,
   updateOne,
   deleteOne,

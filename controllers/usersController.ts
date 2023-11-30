@@ -32,6 +32,11 @@ async function getUserById(
 
 async function createUser(req: Request, res: Response, next: NextFunction) {
   const newUser = req.body;
+  const isUser = await UsersRepo.findOne({ email: newUser.email});
+  if (isUser) {
+    next(ApiError.forbidden("This email address is already in the system"));
+    return;
+  }
   const user = await UsersService.createUser(newUser);
   if (!user) {
     next(ApiError.internal("User could not be created"));
@@ -47,6 +52,7 @@ async function createUser(req: Request, res: Response, next: NextFunction) {
   const token = await UsersService.getToken(payload);
   res.status(201).json({ token })
 }
+
 
 async function login(
   req: Request,

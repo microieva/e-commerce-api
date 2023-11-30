@@ -6,8 +6,10 @@ import { checkAuth as authenticateUser } from "../middlewares/checkAuth"
 import { checkPermission as authorizePermission } from "../middlewares/checkPermission"
 
 const router = express.Router()
-router.get("/", ProductController.findAllProduct)
+router.get("/", ProductController.getAllProducts)
+router.get("/search/", ProductController.getFilteredProductsByTitle)
 router.get("/:productId", ProductController.findOneProduct);
+
 
 router.post("/",
   validateProduct,

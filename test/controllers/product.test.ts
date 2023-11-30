@@ -146,4 +146,8 @@ describe("Product controllers", () => {
     });
     expect(response.body.msg).toEqual('Could not update product');
   })
+  /* 
+  test("getFilteredProductsByTitle", async () => {
+    ...
+  })*/
 });

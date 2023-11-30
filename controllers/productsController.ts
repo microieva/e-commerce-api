@@ -1,10 +1,11 @@
 import { NextFunction, Request, Response } from "express"
 
 import ProductsService from "../services/productsService"
+import ProductsRepo from "../models/Product"
 import { ApiError } from "../errors/ApiError"
 
-export async function findAllProduct(_: Request, res: Response) {
-  const data = await ProductsService.findAll()
+export async function getAllProducts(_: Request, res: Response) {
+  const data = await ProductsService.getAllProducts()
   res.json({ data })
 }
 
@@ -20,8 +21,21 @@ export async function findOneProduct(
     next(ApiError.resourceNotFound("Product is not found."))
     return
   }
-
   res.json({ product })
+}
+
+export async function getFilteredProductsByTitle(
+  req: Request,
+  res: Response,
+  next: NextFunction
+){
+  const { title } = req.query;
+  const data = await ProductsService.getFilteredProductsByTitle(title as string);
+  if (!data) {
+    next(ApiError.resourceNotFound("Products not found"))
+    return
+  }
+  res.json({ data })
 }
 
 export async function createOneProduct(
@@ -84,8 +98,9 @@ export async function updateOneProduct(
 }
 
 export default {
+  getAllProducts,
   findOneProduct,
-  findAllProduct,
+  getFilteredProductsByTitle,
   createOneProduct,
   updateOneProduct,
   deleteOneProduct

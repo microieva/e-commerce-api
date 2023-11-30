@@ -1,7 +1,3 @@
-import request from "supertest";
-
-import app from "../../";
-import CategoryService from "../../services/productsService";
 import connect, { MongoHelper } from "../dbHelper";
 import CategoryRepo from "../../models/Category";
 import ProductRepo from "../../models/Product";
@@ -85,7 +81,7 @@ describe("Category controller", () => {
   });
 
   it("should return a list of products", async () => {
-    const products = await productsService.findAll();
+    const products = await productsService.getAllProducts();
     expect(products.length).toEqual(3);
   });
 
@@ -107,7 +103,12 @@ describe("Category controller", () => {
 
   it("should delete one product", async () => {
     await productsService.deleteOne(productOne._id.toString());
-    const products = await productsService.findAll();
+    const products = await productsService.getAllProducts();
     expect(products.length).toEqual(2);
   });
+  /*
+  test("getFilteredProductsByTitlte", async () => {
+    ....
+  })
+  */
 });
