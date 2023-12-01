@@ -11,7 +11,7 @@ async function getAllProducts() {
   return products;
 }
 
-async function findOne(productId: string) {
+async function getProductById(productId: string) {
   const id = new mongoose.Types.ObjectId(productId);
   const product = await ProductsRepo.findById(id).populate("category");
 
@@ -93,7 +93,7 @@ async function deleteOne(productId: string) {
 
 export default {
   getAllProducts,
-  findOne,
+  getProductById,
   getFilteredProductsByTitle,
   createOne,
   updateOne,

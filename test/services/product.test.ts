@@ -86,7 +86,7 @@ describe("Category controller", () => {
   });
 
   it("should find one product", async () => {
-    const foundProduct = await productsService.findOne(
+    const foundProduct = await productsService.getProductById(
       productOne._id.toString()
     );
     expect(foundProduct?.title).toEqual("Hoody1");
