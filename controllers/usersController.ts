@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs"
 import UsersRepo from "../models/User"
 import UsersService from "../services/usersService"
 import { ApiError } from "../errors/ApiError"
-import { LoginRequest } from "../types/auth"
+import { AuthRequest, LoginRequest } from "../types/auth"
 import { TokenPayload } from "../types/auth"
 
 async function getAllUsers(_: Request, res: Response, next: NextFunction) {
@@ -22,12 +22,26 @@ async function getUserById(
   next: NextFunction
 ) {
   const userId = req.params.userId;
-  const user = await UsersService.getUserById(userId);
-  if (!user) {
+  const data = await UsersService.getUserById(userId);
+  if (!data) {
     next(ApiError.resourceNotFound("User not found"));
     return;
   }
-  res.json({ user });
+  res.json(data);
+}
+
+async function getUserByToken(
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+){
+  const userId = req.decodedUser?.id;
+  const data = userId && await UsersService.getUserById(userId);
+  if (!data) {
+    next(ApiError.resourceNotFound("Sign up or log in to use the system"));
+    return;
+  }
+  res.json(data);
 }
 
 async function createUser(req: Request, res: Response, next: NextFunction) {
@@ -50,7 +64,7 @@ async function createUser(req: Request, res: Response, next: NextFunction) {
     avatar: !user.avatar ? "https://api.lorem.space/image/face?w=640&h=480&r=867" : user.avatar
   }
   const token = await UsersService.getToken(payload);
-  res.status(201).json({ token })
+  res.status(201).json(token)
 }
 
 
@@ -85,7 +99,7 @@ async function login(
     next(ApiError.internal("Token service failed"));
     return;
   }
-  res.status(200).json({ token });
+  res.status(200).json(token);
 }
 
 async function googleLogin(
@@ -156,6 +170,7 @@ async function deleteUser(
 export default {
   getAllUsers,
   getUserById,
+  getUserByToken,
   login,
   createUser,
   updateUser,

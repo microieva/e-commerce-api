@@ -16,7 +16,6 @@ router.post(
 router.post(
     "/login", 
     validateLoginRequest, 
-    //authenticateLoginRequest, 
     UsersController.login
 );
 
@@ -24,6 +23,11 @@ router.post(
     "/login-google",
     passport.authenticate("google-id-token", { session: false }),
     UsersController.googleLogin
-  )
+);
+
+router.get("/profile", 
+    authenticateLoginRequest, 
+    UsersController.getUserByToken
+);
 
 export default router;

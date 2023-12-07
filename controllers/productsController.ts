@@ -29,10 +29,6 @@ export async function getFilteredProductsByTitle(
 ){
   const { title } = req.query;
   const data = await ProductsService.getFilteredProductsByTitle(title as string);
-  if (!data) {
-    next(ApiError.resourceNotFound("Products not found"))
-    return
-  }
   res.json({ data })
 }
 

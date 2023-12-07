@@ -11,6 +11,7 @@ router.get("/",
     UsersController.getAllUsers
 );
 // routes for all logged in users
+
 router.get("/:userId", 
     authenticateUser, 
     UsersController.getUserById

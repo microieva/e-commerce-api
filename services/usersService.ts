@@ -13,7 +13,14 @@ async function getAllUsers() {
 async function getUserById(userId: string) {
   const id = new mongoose.Types.ObjectId(userId);
   const user = await UsersRepo.findById(id);
-  return user;
+  
+  const data = user && {
+    name: user.name,
+    email: user.email,
+    role: user.role,
+    avatar: user.avatar
+  }
+  return data;
 }
 
 async function createUser(user: User) {
