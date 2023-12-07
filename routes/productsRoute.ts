@@ -1,33 +1,33 @@
 import express from "express"
 
-import ProductController from "../controllers/productsController"
+import ProductsController from "../controllers/productsController"
 import { validateProduct } from "../middlewares/productValidate"
 import { checkAuth as authenticateUser } from "../middlewares/checkAuth"
 import { checkPermission as authorizePermission } from "../middlewares/checkPermission"
 
 const router = express.Router()
-router.get("/", ProductController.getAllProducts)
-router.get("/search/", ProductController.getFilteredProductsByTitle)
-router.get("/:productId", ProductController.getProductById);
+router.get("/", ProductsController.getAllProducts)
+router.get("/search/", ProductsController.getFilteredProductsByTitle)
+router.get("/:productId", ProductsController.getProductById);
 
 
 router.post("/",
   validateProduct,
   authenticateUser,
   authorizePermission,
-  ProductController.createOneProduct
+  ProductsController.createProduct
 );
 
 router.delete("/:productId",
   authenticateUser,
   authorizePermission,
-  ProductController.deleteOneProduct
+  ProductsController.deleteOneProduct
 );
 
 router.put("/:productId",
   authenticateUser,
   authorizePermission,
-  ProductController.updateOneProduct
+  ProductsController.updateOneProduct
 );
 
 export default router

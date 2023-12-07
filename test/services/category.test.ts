@@ -41,7 +41,7 @@ describe("Category controllers", () => {
   });
 
   it("should return a list of categories", async () => {
-    const categories = await categoriesService.getAll();
+    const categories = await categoriesService.getCategories();
     expect(categories.length).toEqual(1); // Assuming there is one category created in beforeEach
   });
 
@@ -66,7 +66,7 @@ describe("Category controllers", () => {
 
   it("should delete one category", async () => {
     await categoriesService.deleteCategory(categoryOne._id.toString());
-    const categories = await categoriesService.getAll();
+    const categories = await categoriesService.getCategories();
     expect(categories.length).toEqual(0);
   });
 });

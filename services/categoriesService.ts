@@ -2,7 +2,7 @@ import mongoose, { ObjectId } from "mongoose";
 import CategoryRepo from "../models/Category";
 import { Category, CreateCategoryInput } from "../types/category";
 
-async function getAll() {
+async function getCategories() {
   const categories = await CategoryRepo.find().exec();
   return categories;
 }
@@ -42,7 +42,7 @@ export async function deleteCategory(categoryId: string) {
 
 export default {
   getOne,
-  getAll,
+  getCategories,
   createCategory,
   updateCategory,
   deleteCategory,

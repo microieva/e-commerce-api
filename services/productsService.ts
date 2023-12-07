@@ -23,7 +23,7 @@ async function getFilteredProductsByTitle(title: string) {
   return filteredData;
 }
 
-async function createOne(product: ProductToCreate) {
+async function createProduct(product: ProductToCreate) {
   const category: Category | null = await CategoryRepo.findOne({
     _id: product.categoryId,
   });
@@ -95,7 +95,7 @@ export default {
   getAllProducts,
   getProductById,
   getFilteredProductsByTitle,
-  createOne,
+  createProduct,
   updateOne,
   deleteOne,
   getTotalPrice,

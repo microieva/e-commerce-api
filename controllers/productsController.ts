@@ -19,7 +19,7 @@ export async function getProductById(
     next(ApiError.resourceNotFound("Product is not found."))
     return
   }
-  res.json({ data })
+  res.json(data)
 }
 
 export async function getFilteredProductsByTitle(
@@ -32,20 +32,20 @@ export async function getFilteredProductsByTitle(
   res.json({ data })
 }
 
-export async function createOneProduct(
+export async function createProduct(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
   const newProduct = req.body
-  const product = await ProductsService.createOne(newProduct)
+  const data = await ProductsService.createProduct(newProduct)
 
-  if (!product) {
+  if (!data) {
     next(ApiError.resourceNotFound("Category id is not found"));
     return;
   }
 
-  res.status(201).json({ product })
+  res.status(201).json(data)
 }
 
 export async function deleteOneProduct(
@@ -95,7 +95,7 @@ export default {
   getAllProducts,
   getProductById,
   getFilteredProductsByTitle,
-  createOneProduct,
+  createProduct,
   updateOneProduct,
   deleteOneProduct
 }

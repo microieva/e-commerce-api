@@ -11,9 +11,9 @@ interface ValidationError {
   };
 }
 
-export async function getAllCategories(_: Request, res: Response) {
-  const categories = await CategoriesService.getAll();
-  res.json({ categories });
+export async function getCategories(_: Request, res: Response) {
+  const data = await CategoriesService.getCategories();
+  res.json(data);
 }
 
 export async function getOneCategory(
@@ -85,7 +85,7 @@ export async function deleteCategory(
 
 export default {
   getOneCategory,
-  getAllCategories,
+  getCategories,
   createCategory,
   updateCategory,
   deleteCategory,

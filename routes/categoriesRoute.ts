@@ -1,7 +1,7 @@
 import express from "express";
 import {
   createCategory,
-  getAllCategories,
+  getCategories,
   getOneCategory,
   updateCategory,
   deleteCategory,
@@ -12,7 +12,7 @@ import { checkPermission as authorizePermission } from "../middlewares/checkPerm
 
 const router = express.Router();
 
-router.get("/", authenticateUser, authorizePermission, getAllCategories);
+router.get("/", authenticateUser, authorizePermission, getCategories);
 router.get("/:categoryId", authenticateUser, getOneCategory);
 router.post("/",  authenticateUser, createCategory);
 router.put("/:categoryId", authenticateUser, updateCategory);

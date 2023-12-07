@@ -1,7 +1,7 @@
 import connect, { MongoHelper } from "../dbHelper";
 import CategoryRepo from "../../models/Category";
 import ProductRepo from "../../models/Product";
-import productsService from "../../services/productsService";
+import ProductsService from "../../services/productsService";
 import {Category} from "../../types/category";
 import { ProductToCreate } from "products";
 import mongoose from "mongoose";
@@ -75,18 +75,18 @@ describe("Category controller", () => {
             "https://i.imgur.com/p8AjjXS.jpeg"
         ]
       }
-    const newProduct = await productsService.createOne(product);
+    const newProduct = await ProductsService.createProduct(product);
     expect(newProduct).toHaveProperty("_id");
     expect(newProduct?.title).toEqual("Another Hoody");
   });
 
   it("should return a list of products", async () => {
-    const products = await productsService.getAllProducts();
+    const products = await ProductsService.getAllProducts();
     expect(products.length).toEqual(3);
   });
 
   it("should find one product", async () => {
-    const foundProduct = await productsService.getProductById(
+    const foundProduct = await ProductsService.getProductById(
       productOne._id.toString()
     );
     expect(foundProduct?.title).toEqual("Hoody1");
@@ -94,7 +94,7 @@ describe("Category controller", () => {
   });
 
   it("should update product", async () => {
-    const updatedProduct = await productsService.updateOne(
+    const updatedProduct = await ProductsService.updateOne(
       productOne._id.toString(),
       { title: "Fantastic Hoodie" }
     );
@@ -102,8 +102,8 @@ describe("Category controller", () => {
   });
 
   it("should delete one product", async () => {
-    await productsService.deleteOne(productOne._id.toString());
-    const products = await productsService.getAllProducts();
+    await ProductsService.deleteOne(productOne._id.toString());
+    const products = await ProductsService.getAllProducts();
     expect(products.length).toEqual(2);
   });
   /*
