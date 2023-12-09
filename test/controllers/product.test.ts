@@ -2,7 +2,7 @@ import request from "supertest"
 import app from "../../"
 import ProductService from "../../services/productsService"
 import connect, { MongoHelper } from "../dbHelper"
-import { ProductToCreate } from "products";
+import { ProductToCreate } from "product";
 import { createAdminWithToken } from "../__fixtures__/createAdminWithToken";
 import { createCategoryAsAdmin } from "../__fixtures__/createCategoryAsAdmin";
 import { createProductAsAdmin } from "../__fixtures__/createProductAsAdmin";

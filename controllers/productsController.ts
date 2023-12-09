@@ -29,7 +29,7 @@ export async function getFilteredProductsByTitle(
 ){
   const { title } = req.query;
   const data = await ProductsService.getFilteredProductsByTitle(title as string);
-  res.json({ data })
+  res.json(data)
 }
 
 export async function createProduct(

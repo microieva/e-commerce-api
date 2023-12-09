@@ -3,7 +3,7 @@ import CategoryRepo from "../../models/Category";
 import ProductRepo from "../../models/Product";
 import ProductsService from "../../services/productsService";
 import {Category} from "../../types/category";
-import { ProductToCreate } from "products";
+import { ProductToCreate } from "product";
 import mongoose from "mongoose";
 
 describe("Category controller", () => {
