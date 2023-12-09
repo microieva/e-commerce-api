@@ -94,7 +94,7 @@ describe("Category controller", () => {
   });
 
   it("should update product", async () => {
-    const updatedProduct = await ProductsService.updateOne(
+    const updatedProduct = await ProductsService.updateProduct(
       productOne._id.toString(),
       { title: "Fantastic Hoodie" }
     );

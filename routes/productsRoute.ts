@@ -27,7 +27,7 @@ router.delete("/:productId",
 router.put("/:productId",
   authenticateUser,
   authorizePermission,
-  ProductsController.updateOneProduct
+  ProductsController.updateProduct
 );
 
 export default router

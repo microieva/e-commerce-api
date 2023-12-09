@@ -36,7 +36,7 @@ async function createProduct(product: ProductToCreate) {
   return null;
 }
 
-async function updateOne(
+async function updateProduct(
   productId: string,
   updatesForProductInput: Partial<ProductToCreate>
 ) {
@@ -96,7 +96,7 @@ export default {
   getProductById,
   getFilteredProductsByTitle,
   createProduct,
-  updateOne,
+  updateProduct,
   deleteOne,
   getTotalPrice,
 };

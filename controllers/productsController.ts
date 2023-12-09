@@ -64,31 +64,31 @@ export async function deleteOneProduct(
   res.json({ product });
 }
 
-export async function updateOneProduct(
+export async function updateProduct(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
   const productId = req.params.productId;
-  const updatesForProduct = req.body;
-  const productToUpdate = await ProductsService.getProductById(productId);
+  const updates = req.body;
+  const product = await ProductsService.getProductById(productId);
 
-  if (!productToUpdate) {
+  if (!product) {
     next(ApiError.resourceNotFound("Product is not found"));
     return;
   }
 
-  const updatedProduct = await ProductsService.updateOne(
+  const data = await ProductsService.updateProduct(
     productId,
-    updatesForProduct
+    updates
   );
 
-  if (!updatedProduct) {
+  if (!data) {
     next(ApiError.internal("Could not update product"));
     return;
   }
 
-  res.json({ updatedProduct });
+  res.json(data);
 }
 
 export default {
@@ -96,6 +96,6 @@ export default {
   getProductById,
   getFilteredProductsByTitle,
   createProduct,
-  updateOneProduct,
+  updateProduct,
   deleteOneProduct
 }
