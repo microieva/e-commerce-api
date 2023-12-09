@@ -86,7 +86,7 @@ async function getTotalPrice(
   return sum; 
 }
 
-async function deleteOne(productId: string) {
+async function deleteProduct(productId: string) {
   const id = new mongoose.Types.ObjectId(productId);
   return await ProductsRepo.findByIdAndDelete(id).populate("category");
 }
@@ -97,6 +97,6 @@ export default {
   getFilteredProductsByTitle,
   createProduct,
   updateProduct,
-  deleteOne,
+  deleteProduct,
   getTotalPrice,
 };

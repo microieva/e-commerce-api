@@ -48,20 +48,20 @@ export async function createProduct(
   res.status(201).json(data)
 }
 
-export async function deleteOneProduct(
+export async function deleteProduct(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
   const productId = req.params.productId;
-  const product = await ProductsService.deleteOne(productId);
+  const data = await ProductsService.deleteProduct(productId);
 
-  if (!product) {
+  if (!data) {
     next(ApiError.resourceNotFound("Product is not found"));
     return;
   }
 
-  res.json({ product });
+  res.json(data);
 }
 
 export async function updateProduct(
@@ -97,5 +97,5 @@ export default {
   getFilteredProductsByTitle,
   createProduct,
   updateProduct,
-  deleteOneProduct
+  deleteProduct
 }

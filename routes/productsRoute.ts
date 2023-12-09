@@ -21,7 +21,7 @@ router.post("/",
 router.delete("/:productId",
   authenticateUser,
   authorizePermission,
-  ProductsController.deleteOneProduct
+  ProductsController.deleteProduct
 );
 
 router.put("/:productId",

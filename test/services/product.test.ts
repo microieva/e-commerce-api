@@ -102,7 +102,7 @@ describe("Category controller", () => {
   });
 
   it("should delete one product", async () => {
-    await ProductsService.deleteOne(productOne._id.toString());
+    await ProductsService.deleteProduct(productOne._id.toString());
     const products = await ProductsService.getAllProducts();
     expect(products.length).toEqual(2);
   });
