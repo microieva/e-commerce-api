@@ -4,7 +4,7 @@ import { ApiError } from "../errors/ApiError"
 
 export async function getAllProducts(_: Request, res: Response) {
   const data = await ProductsService.getAllProducts()
-  res.json({ data })
+  res.json(data)
 }
 
 export async function getProductById(

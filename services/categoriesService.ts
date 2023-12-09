@@ -7,7 +7,7 @@ async function getCategories() {
   return categories;
 }
 
-async function getOne(categoryId: string) {
+async function getCategoryById(categoryId: string) {
   const id = new mongoose.Types.ObjectId(categoryId);
   const category = await CategoryRepo.findById(id);
   return category;
@@ -41,7 +41,7 @@ export async function deleteCategory(categoryId: string) {
 
 
 export default {
-  getOne,
+  getCategoryById,
   getCategories,
   createCategory,
   updateCategory,

@@ -70,7 +70,7 @@ describe("Category controller", () => {
         title: "Another Hoody",
         price: 150,
         description: "Another hoodie for your good boy",
-        categoryId: category.id.toString(),
+        categoryId: category._id,
         images: [
             "https://i.imgur.com/p8AjjXS.jpeg"
         ]

@@ -19,7 +19,7 @@ async function getProductById(productId: string) {
 }
 
 async function getFilteredProductsByTitle(title: string) {
-  const filteredData = await ProductsRepo.find({ title: { $regex: new RegExp(title, 'i') } });
+  const filteredData = await ProductsRepo.find({ title: { $regex: new RegExp(title, 'i') } }).populate("category").exec();
   return filteredData;
 }
 

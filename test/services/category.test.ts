@@ -46,7 +46,7 @@ describe("Category controllers", () => {
   });
 
   it("should find one category", async () => {
-    const foundCategory = await categoriesService.getOne(
+    const foundCategory = await categoriesService.getCategoryById(
       categoryOne._id.toString()
     );
     expect(foundCategory?.name).toEqual("Electronics");

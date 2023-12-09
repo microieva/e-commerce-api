@@ -16,19 +16,19 @@ export async function getCategories(_: Request, res: Response) {
   res.json(data);
 }
 
-export async function getOneCategory(
+export async function getCategoryById(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
   const categoryId = req.params.categoryId;
-  const category = await CategoriesService.getOne(categoryId);
+  const data = await CategoriesService.getCategoryById(categoryId);
 
-  if (!category) {
+  if (!data) {
     next(ApiError.resourceNotFound("Category not found."));
     return;
   }
-  res.json({ category });
+  res.json(data);
 }
 
 export async function createCategory(
@@ -52,7 +52,7 @@ export async function updateCategory(
 ) {
   const categoryId = req.params.categoryId;
   const categoryData = req.body;
-  const category = CategoriesService.getOne(categoryId);
+  const category = CategoriesService.getCategoryById(categoryId);
 
   if (!category) {
     next(ApiError.resourceNotFound("Category not found"));
@@ -72,7 +72,7 @@ export async function deleteCategory(
   next: NextFunction
 ) {
   const categoryId = req.params.categoryId;
-  const category = CategoriesService.getOne(categoryId);
+  const category = CategoriesService.getCategoryById(categoryId);
 
   if (category === null) {
     next(ApiError.resourceNotFound("Category does not exist"));
@@ -84,7 +84,7 @@ export async function deleteCategory(
 }
 
 export default {
-  getOneCategory,
+  getCategoryById,
   getCategories,
   createCategory,
   updateCategory,
