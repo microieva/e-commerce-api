@@ -7,7 +7,7 @@ async function getAllItems(){
 }
 
 async function getItem(productId: string, orderId: string) {
-    const item = await ItemsRepo.findOne()
+    const item = await ItemsRepo.findOne({productId, orderId})
     return item;
 }
 

@@ -36,11 +36,12 @@ async function getUserByToken(
   next: NextFunction
 ){
   const userId = req.decodedUser?.id;
-  const data = userId && await UsersService.getUserById(userId);
-  if (!data) {
+  const user = userId && await UsersService.getUserById(userId);
+  if (!user) {
     next(ApiError.resourceNotFound("Sign up or log in to use the system"));
     return;
   }
+  const data = {_id: userId, ...user}
   res.json(data);
 }
 

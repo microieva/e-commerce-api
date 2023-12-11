@@ -4,6 +4,7 @@ import ItemsService from "../services/itemsService"
 import ProductsService from "../services/productsService";
 import { ApiError } from "../errors/ApiError"
 import Item from "../models/Item";
+import ItemRepo from '../models/Item';
 import { OrderRequest } from "../types/orderRequest";
 
 async function getAllOrders(
@@ -41,12 +42,13 @@ async function createOrder(
     const userId: string = req.params.userId;
     const arr: OrderRequest[] = req.body; 
     const totalPrice: number = await ProductsService.getTotalPrice(arr);
-    const newOrder = await OrdersService.createOrder(userId, totalPrice);
-    if (!newOrder) {
+    const data = await OrdersService.createOrder(userId, totalPrice);
+    if (!data) {
         next(ApiError.internal("Order could not be created"));
         return;
     }
-    const orderId = newOrder._id
+    const orderId = data._id
+
     await Promise.all(
         arr.map(async (item) => {
             const orderItem = new Item({
@@ -54,17 +56,15 @@ async function createOrder(
                 productId: item.id,
                 quantity: item.quantity,
             });
-            orderItem.save();
-            const _productId = orderItem.productId?.toString();
-            const _orderId = orderItem.orderId?.toString();
-            const savedItem = _productId && _orderId && await ItemsService.getItem(_productId, _orderId);
+            const savedItem = await ItemRepo.create(orderItem);
+
             if (!savedItem) {
                 next(ApiError.internal("Item could not be created"));
                 return;
             }
         })
-    );  
-    res.status(201).json({ newOrder });
+    )
+    res.status(201).json(data);
 }
 
 async function deleteOrder(
