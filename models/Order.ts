@@ -7,7 +7,11 @@ const OrderSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User"
   },
-  totalPrice: Number
+  totalPrice: Number,
+  paid: {
+    type: Boolean,
+    default: false
+  }
 })
 
 export default mongoose.model("Order", OrderSchema, "orders")

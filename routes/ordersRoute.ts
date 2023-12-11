@@ -20,6 +20,10 @@ router.get("/user/:userId",
     authenticateUser, 
     OrdersController.getOrdersByUserId
 ); 
+router.put("/order/:orderId",
+    authenticateUser,
+    OrdersController.updateOrder
+);
 router.delete("/user/:userId", 
     authenticateUser, 
     OrdersController.deleteAllOrdersByUserId

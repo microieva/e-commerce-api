@@ -5,19 +5,15 @@ import ProductsService from "../services/productsService";
 import { ApiError } from "../errors/ApiError"
 import Item from "../models/Item";
 import ItemRepo from '../models/Item';
-import { OrderRequest } from "../types/orderRequest";
+import { OrderRequest } from "../types/order";
 
 async function getAllOrders(
     _: Request, 
     res: Response, 
     next: NextFunction
 ) {
-  const orders = await OrdersService.getAllOrders();
-  if (!orders) {
-    next(ApiError.resourceNotFound("No collection"));
-    return;
-  }
-  res.json({ orders });
+  const data = await OrdersService.getAllOrders();
+  res.json(data);
 }
 
 async function getOrdersByUserId(
@@ -26,12 +22,12 @@ async function getOrdersByUserId(
     next: NextFunction
   ) {
     const userId = req.params.userId;
-    const orders = await OrdersService.getOrdersByUserId(userId);
-    if (!orders) {
+    const data = await OrdersService.getOrdersByUserId(userId);
+    if (data.length === 0) {
       next(ApiError.resourceNotFound("This user has no orders"));
       return;
     }
-    res.json({ orders });
+    res.json(data);
 }
 
 async function createOrder(
@@ -65,6 +61,22 @@ async function createOrder(
         })
     )
     res.status(201).json(data);
+}
+
+async function updateOrder(
+    req: Request,
+    res: Response,
+    next: NextFunction
+) {
+    const id = req.params.orderId;
+    const updates = req.body;
+    const order = await OrdersService.getOrderById(id);
+    if (!order) {
+      next(ApiError.resourceNotFound("Order not found"));
+      return;
+    }
+    const data = await OrdersService.updateOrder(id, updates);
+    res.status(200).json(data);
 }
 
 async function deleteOrder(
@@ -127,6 +139,7 @@ export default {
     getAllOrders,
     getOrdersByUserId,
     createOrder,
+    updateOrder,
     deleteOrder,
     deleteAllOrders, 
     deleteAllOrdersByUserId

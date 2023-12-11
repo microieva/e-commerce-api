@@ -4,7 +4,7 @@ import ProductsRepo from "../models/Product";
 import { Product, ProductDTO, ProductToCreate } from "../types/product";
 import CategoryRepo from "../models/Category";
 import { Category } from "../types/category";
-import { OrderRequest } from "../types/orderRequest";
+import { OrderRequest } from "../types/order";
 
 async function getAllProducts() {
   const products = await ProductsRepo.find().populate("category").exec(); 

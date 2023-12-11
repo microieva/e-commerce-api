@@ -1,5 +1,6 @@
 import mongoose from "mongoose"
 import OrdersRepo from "../models/Order"
+import { Order } from "../types/order";
 
 async function getAllOrders() {
   const orders = await OrdersRepo.find().exec();
@@ -24,6 +25,16 @@ async function createOrder(userId: string, totalPrice: number) {
     return await newOrder.save();
 }
 
+async function updateOrder(orderId: string, updates: Partial<Order>) {
+    const id = new mongoose.Types.ObjectId(orderId);
+    const result = await OrdersRepo.updateOne({ _id: id }, { $set: updates });
+  
+    if (!result) {
+      return null;
+    }
+    return await OrdersRepo.findById(id);
+}
+
 async function deleteOrder(orderId: string) {
     const id = new mongoose.Types.ObjectId(orderId);
     return await OrdersRepo.findByIdAndDelete(id);
@@ -43,6 +54,7 @@ export default {
     getOrdersByUserId,
     getOrderById,
     createOrder,
+    updateOrder,
     deleteOrder,
     deleteAllOrders,
     deleteAllOrdersByUserId
