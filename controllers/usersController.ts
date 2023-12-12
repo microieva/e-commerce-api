@@ -144,8 +144,8 @@ async function updateUser(
       next(ApiError.resourceNotFound("User not found"));
       return;
     }
-    const updatedUser = await UsersService.updateUser(id, userData);
-    res.status(200).json({ updatedUser });
+    const data = await UsersService.updateUser(id, userData);
+    res.status(200).json(data);
 }
 
 async function deleteUser(

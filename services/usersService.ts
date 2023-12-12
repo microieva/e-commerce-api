@@ -36,14 +36,25 @@ async function getToken(payload: TokenPayload) {
   return token;
 }
 
-async function updateUser(userId: string, updatedUser: Partial<User>) {
+async function updateUser(userId: string, updates: Partial<User>) {
   const id = new mongoose.Types.ObjectId(userId);
-  const result = await UsersRepo.updateOne({ _id: id }, { $set: updatedUser });
+  if (updates.password) {
+    const hashedPsw = await bcrypt.hash(updates.password, 10);
+    updates.password = hashedPsw;
+  }
+  const result = await UsersRepo.updateOne({ _id: id }, { $set: updates });
 
   if (!result) {
     return null;
   }
-  return await UsersRepo.findById(id);
+  const user =  await UsersRepo.findById(id);
+  const data = user && {
+    name: user.name,
+    email: user.email,
+    role: user.role,
+    avatar: user.avatar
+  }
+  return data;
 }
 
 async function deleteUser(userId: string){
