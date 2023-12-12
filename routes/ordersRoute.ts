@@ -24,6 +24,10 @@ router.put("/order/:orderId",
     authenticateUser,
     OrdersController.updateOrder
 );
+router.delete("/:orderId", 
+    authenticateUser, 
+    OrdersController.deleteOrder
+); 
 router.delete("/user/:userId", 
     authenticateUser, 
     OrdersController.deleteAllOrdersByUserId
@@ -32,10 +36,6 @@ router.post("/checkout/:userId",
     authenticateUser, 
     OrdersController.createOrder
 );
-router.delete("/:orderId", 
-    authenticateUser, 
-    OrdersController.deleteOrder
-); 
 
 
 export default router;
