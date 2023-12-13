@@ -165,7 +165,7 @@ async function deleteUser(
       next(ApiError.internal("Deleting failed")); 
       return;
     }
-    res.status(204).json({msg: "User was deleted successfuly"});
+    res.json({msg: "User was deleted successfuly"});
 }
 
 export default {
