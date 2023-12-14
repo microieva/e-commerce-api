@@ -10,7 +10,7 @@ router.get("/",
     authorizePermission, 
     OrdersController.getAllOrders
 );
-router.delete("/", 
+router.delete("/orders", 
     authenticateUser, 
     authorizePermission,
     OrdersController.deleteAllOrders
