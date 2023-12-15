@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "ts-watch": "tsc -w",
-    "start": "nodemon dist/index.js",
+    "start": "tsx watch index.ts",
     "test": "jest --forceExit --coverage --verbose false --runInBand"
   },
   "keywords": [],
