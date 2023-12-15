@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "ts-watch": "tsc -w",
     "start": "tsx watch index.ts",
     "test": "jest --forceExit --coverage --verbose false --runInBand"
   },
