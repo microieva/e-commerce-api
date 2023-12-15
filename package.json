@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "ts-watch": "tsc -w",
-    "start": "node dist/index.js",
+    "start": "tsx watch index.ts",
     "test": "jest --forceExit --coverage --verbose false --runInBand"
   },
   "keywords": [],
@@ -30,7 +29,7 @@
     "passport": "^0.6.0",
     "passport-google-id-token": "^0.4.7",
     "ts-node": "^10.9.1",
-    "tsc": "^2.0.4",
+    "tsx": "^4.6.2",
     "typescript": "^5.2.2",
     "zod": "^3.22.4"
   },
