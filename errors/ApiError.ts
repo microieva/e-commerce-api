@@ -23,4 +23,8 @@ export class ApiError {
   static internal(msg: string) {
     return new ApiError(500, msg)
   }
+
+  static badGateway(msg: string) {
+    return new ApiError(502, msg)
+  }
 }
