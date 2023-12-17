@@ -30,6 +30,20 @@ async function getOrdersByUserId(
     res.json(data);
 }
 
+async function getOrderItems(
+    req: Request,
+    res: Response,
+    next: NextFunction
+){
+    const orderId = req.params.orderId;
+    const data = await OrdersService.getOrderItems(orderId);
+    if (data.length === 0 ) {
+        next(ApiError.resourceNotFound("No order items found"));
+        return;
+    }
+    res.json(data);
+}
+
 async function createOrder(
     req: Request,
     res: Response,
@@ -138,6 +152,7 @@ async function deleteAllOrdersByUserId(
 export default {
     getAllOrders,
     getOrdersByUserId,
+    getOrderItems,
     createOrder,
     updateOrder,
     deleteOrder,

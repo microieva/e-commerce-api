@@ -20,6 +20,10 @@ router.get("/user/:userId",
     authenticateUser, 
     OrdersController.getOrdersByUserId
 ); 
+router.get("/items/:orderId",
+    authenticateUser,
+    OrdersController.getOrderItems
+)
 router.put("/order/:orderId",
     authenticateUser,
     OrdersController.updateOrder
