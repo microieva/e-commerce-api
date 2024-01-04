@@ -1,14 +1,19 @@
-import users from "./users";
-import usersService from "../../services/usersService";
-import {User} from "../../types/user";
+
+import request from "supertest";
+import app from "../..";
 
 export async function createAdminWithToken() {
-  const adminData: any = users[0];
-  const user = await usersService.createUser(adminData as User);
+  const testAdmin = {
+    name: "Test Admin",
+    email: "admin@email.com",
+    password: "admin123",
+    role: "ADMIN",
+    avatar: "https://api.lorem.space/image/face?w=640&h=480&r=867"
+  }
 
-  adminData.id = user._id.toString();
-
-  const token = await usersService.getToken(adminData);
-
-  return token;
+  const response = await request(app)
+    .post("/api/v1/auth/signup")
+    .send(testAdmin);
+    
+  return response.body;
 }

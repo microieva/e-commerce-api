@@ -53,6 +53,7 @@ async function createOrder(
     const arr: OrderRequest[] = req.body; 
     const totalPrice: number = await ProductsService.getTotalPrice(arr);
     const data = await OrdersService.createOrder(userId, totalPrice);
+
     if (!data) {
         next(ApiError.internal("Order could not be created"));
         return;

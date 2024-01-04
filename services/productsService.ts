@@ -6,7 +6,7 @@ import CategoryRepo from "../models/Category";
 import { Category } from "../types/category";
 import { OrderRequest } from "../types/order";
 
-async function getAllProducts() {
+async function getProducts() {
   const products = await ProductsRepo.find().populate("category").exec(); 
   return products;
 }
@@ -97,10 +97,9 @@ async function deleteProduct(productId: string) {
 }
 
 export default {
-  getAllProducts,
+  getProducts,
   getProductById,
   getFilteredProductsByTitle,
-  getProductsByCategoryId,
   createProduct,
   updateProduct,
   deleteProduct,

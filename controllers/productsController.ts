@@ -2,8 +2,8 @@ import { NextFunction, Request, Response } from "express"
 import ProductsService from "../services/productsService"
 import { ApiError } from "../errors/ApiError"
 
-export async function getAllProducts(_: Request, res: Response) {
-  const data = await ProductsService.getAllProducts()
+export async function getProducts(_: Request, res: Response) {
+  const data = await ProductsService.getProducts()
   res.json(data)
 }
 
@@ -17,20 +17,6 @@ export async function getProductById(
 
   if (!data) {
     next(ApiError.resourceNotFound("Product is not found."))
-    return
-  }
-  res.json(data)
-}
-
-async function getProductsByCategoryId(
-  req: Request,
-  res: Response,
-  next: NextFunction){
-  const categoryId = req.params.categoryId
-  const data = await ProductsService.getProductsByCategoryId(categoryId)
-
-  if (!data) {
-    next(ApiError.resourceNotFound("Products not found."))
     return
   }
   res.json(data)
@@ -106,10 +92,9 @@ export async function updateProduct(
 }
 
 export default {
-  getAllProducts,
+  getProducts,
   getProductById,
   getFilteredProductsByTitle,
-  getProductsByCategoryId,
   createProduct,
   updateProduct,
   deleteProduct

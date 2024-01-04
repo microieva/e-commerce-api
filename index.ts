@@ -21,7 +21,7 @@ const app = express();
 app.use(express.json());
 app.use(cors())
 
-connectDb();
+//connectDb();
 
 app.use(passport.initialize())
 passport.use(loginWithGoogle())
@@ -30,7 +30,7 @@ app.get("/hello", loggingMiddleware, (_, res) => {
   res.json({ msg: "hello, from Express.js!" });
 });
 
-app.use(loggingMiddleware);
+//app.use(loggingMiddleware);
 app.use("/api/v1/categories", categoriesRoute);
 app.use("/api/v1/users", usersRoute);
 app.use("/api/v1/auth", authRoute);
@@ -39,8 +39,8 @@ app.use("/api/v1/orders", ordersRoute);
 app.use(apiErrorHandler);
 app.use(routeNotFound);
 
-app.listen(PORT, () => {
+/*app.listen(PORT, () => {
   console.log(`👀 app is running at localhost:${PORT}`);
-});
+});*/
 
 export default app;

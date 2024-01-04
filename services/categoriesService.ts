@@ -41,8 +41,8 @@ export async function deleteCategory(categoryId: string) {
 
 
 export default {
-  getCategoryById,
   getCategories,
+  getCategoryById,
   createCategory,
   updateCategory,
   deleteCategory,

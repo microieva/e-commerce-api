@@ -42,7 +42,7 @@ describe("Category controllers", () => {
 
   it("should return a list of categories", async () => {
     const categories = await categoriesService.getCategories();
-    expect(categories.length).toEqual(1); // Assuming there is one category created in beforeEach
+    expect(categories.length).toEqual(1); 
   });
 
   it("should find one category", async () => {
