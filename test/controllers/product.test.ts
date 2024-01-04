@@ -42,8 +42,7 @@ describe("Product controllers", () => {
     const response = await request(app)
       .post("/api/v1/products")
       .set('Authorization', `Bearer ${token}`)
-      .send({
-       
+      .send({       
         "title": "Another Hoody",
         "price": 150,
         "description": "Another hoody for your good boy",

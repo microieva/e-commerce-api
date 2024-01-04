@@ -1,7 +1,10 @@
 import request from "supertest";
 import app from "../..";
+<<<<<<< HEAD
 import { createAdminWithToken } from "./createAdminWithToken";
 import CategoriesService from '../../services/categoriesService';
+=======
+>>>>>>> 7661e3d (services & controllers)
 
 export async function createCategoryAsAdmin(token: string) {
   const testCategory = {

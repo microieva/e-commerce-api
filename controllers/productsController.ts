@@ -22,20 +22,6 @@ export async function getProductById(
   res.json(data)
 }
 
-async function getProductsByCategoryId(
-  req: Request,
-  res: Response,
-  next: NextFunction){
-  const categoryId = req.params.categoryId
-  const data = await ProductsService.getProductsByCategoryId(categoryId)
-
-  if (!data) {
-    next(ApiError.resourceNotFound("Products not found."))
-    return
-  }
-  res.json(data)
-}
-
 export async function getFilteredProductsByTitle(
   req: Request,
   res: Response,
@@ -109,7 +95,6 @@ export default {
   getProducts,
   getProductById,
   getFilteredProductsByTitle,
-  getProductsByCategoryId,
   createProduct,
   updateProduct,
   deleteProduct

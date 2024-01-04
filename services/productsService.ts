@@ -100,7 +100,6 @@ export default {
   getProducts,
   getProductById,
   getFilteredProductsByTitle,
-  getProductsByCategoryId,
   createProduct,
   updateProduct,
   deleteProduct,

@@ -6,8 +6,8 @@ import UsersService from "../../services/usersService";
 
 export async function createProductAsAdmin(token: string) {
   const category = await createCategoryAsAdmin(token);
-  const categoryId = category._id.toString();
-
+  const categoryId = category._id;
+  
   const testProduct = {
     title: "Test Product",
     price: 150,
@@ -21,6 +21,5 @@ export async function createProductAsAdmin(token: string) {
     .set('Authorization', `Bearer ${token}`)
     .send(testProduct);
 
-  //console.log("CREATED PRODUCT: ", response.body)
   return response.body;
 }
