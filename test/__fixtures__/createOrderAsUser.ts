@@ -5,18 +5,23 @@ import { createProductAsAdmin } from "./createProductAsAdmin";
 import UsersService from '../../services/usersService';
 import { OrderRequest } from "order";
 
-export async function createOrderAsUser(token: string) {
+export async function createOrderAsUser(token: string, index: number) {
     const adminToken = await createAdminWithToken();
     const product1 = await createProductAsAdmin(adminToken);
+    const product2 = await createProductAsAdmin(adminToken);
 
     const users = await UsersService.getAllUsers();
     
-    const userId = users[0]._id.toString();
+    const userId = users[index]._id.toString();
 
     const testOrder: OrderRequest[] = [
         {
             id: product1._id,
             quantity: 2
+        },
+        {
+          id: product2._id,
+          quantity: 1
         }
     ]
 
