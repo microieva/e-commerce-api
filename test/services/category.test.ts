@@ -1,23 +1,23 @@
 import connect, { MongoHelper } from "../dbHelper";
 import CategoryRepo from "../../models/Category";
-import categoriesService from "../../services/categoriesService";
+import CategoriesService from "../../services/categoriesService";
 import mongoose from "mongoose";
+import { createCategoryAsAdmin } from "../__fixtures__/createCategoryAsAdmin";
+import { createAdminWithToken } from "../__fixtures__/createAdminWithToken";
 
 describe("Category controllers", () => {
   let mongoHelper: MongoHelper;
-  let categoryOne: mongoose.Document;
+  let category: mongoose.Document;
+  let categoryId: string;
 
   beforeAll(async () => {
     mongoHelper = await connect();
   });
 
   beforeEach(async () => {
-    const categoryInstance = new CategoryRepo({
-      name: "Electronics",
-      image: "https://api.lorem.space/image/fashion?w=640&h=480&r=4278",
-    });
-
-    categoryOne = await categoryInstance.save();
+    const adminToken = await createAdminWithToken();
+    category = await createCategoryAsAdmin(adminToken)
+    categoryId = category._id;
   });
 
   afterEach(async () => {
@@ -28,45 +28,44 @@ describe("Category controllers", () => {
     await mongoHelper.closeDatabase();
   });
 
-  it("should create a new category", async () => {
-    const categoryData = {
-      name: "Clothing",
+  test("createCategory - should create a new category", async () => {
+    const testCategory = {
+      name: "Test Category",
       image: "https://api.lorem.space/image/fashion?w=640&h=480&r=4278",
     };
 
-    const newCategory = await categoriesService.createCategory(categoryData);
+    const newCategory = await CategoriesService.createCategory(testCategory);
 
     expect(newCategory).toHaveProperty("_id");
-    expect(newCategory?.name).toEqual("Clothing");
+    expect(newCategory?.name).toEqual("Test Category");
   });
 
-  it("should return a list of categories", async () => {
-    const categories = await categoriesService.getCategories();
+  test("getCategories - admin only", async () => {
+    const categories = await CategoriesService.getCategories();
     expect(categories.length).toEqual(1); 
   });
 
-  it("should find one category", async () => {
-    const foundCategory = await categoriesService.getCategoryById(
-      categoryOne._id.toString()
+  test("getCategoryById - should find one category", async () => {
+    const foundCategory = await CategoriesService.getCategoryById(
+      categoryId
     );
-    expect(foundCategory?.name).toEqual("Electronics");
+    expect(foundCategory?.name).toEqual("Test Category");
     expect(foundCategory?.image).toEqual(
       "https://api.lorem.space/image/fashion?w=640&h=480&r=4278"
     );
   });
 
-  it("should update category", async () => {
-    const updatedCategory = await categoriesService.updateCategory(
-      categoryOne._id.toString(),
-      { name: "Updated Electronics" }
+  test("updateCategory - should update category", async () => {
+    const updatedCategory = await CategoriesService.updateCategory(
+      categoryId,
+      { name: "UPDATED NAME" }
     );
-
-    expect(updatedCategory?.name).toEqual("Updated Electronics");
+    expect(updatedCategory?.name).toBe("UPDATED NAME");
   });
 
-  it("should delete one category", async () => {
-    await categoriesService.deleteCategory(categoryOne._id.toString());
-    const categories = await categoriesService.getCategories();
-    expect(categories.length).toEqual(0);
+  test("deletecategory - should delete one category", async () => {
+    await CategoriesService.deleteCategory(categoryId);
+    const categoriesAfterDeleting = await CategoriesService.getCategories();
+    expect(categoriesAfterDeleting.length).toEqual(0);
   });
 });

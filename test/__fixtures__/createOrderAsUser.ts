@@ -9,7 +9,7 @@ export async function createOrderAsUser(token: string, index: number) {
     const adminToken = await createAdminWithToken();
     const product1 = await createProductAsAdmin(adminToken);
     const product2 = await createProductAsAdmin(adminToken);
-
+    
     const users = await UsersService.getAllUsers();
     
     const userId = users[index]._id.toString();

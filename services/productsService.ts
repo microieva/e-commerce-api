@@ -23,11 +23,6 @@ async function getFilteredProductsByTitle(title: string) {
   return filteredData;
 }
 
-async function getProductsByCategoryId(categoryId: string){
-  const products = await ProductsRepo.find([categoryId]).populate("category").exec();
-  return products;
-}
-
 async function createProduct(product: ProductToCreate) {
   const category: Category | null = await CategoryRepo.findOne({
     _id: product.categoryId,

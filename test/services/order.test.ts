@@ -11,7 +11,6 @@ import { createOrderAsUser } from "../__fixtures__/createOrderAsUser";
 
 describe("Order services", () => {
   let mongoHelper: MongoHelper;
-  let categoryOne: mongoose.Document;
 
   beforeAll(async () => {
     mongoHelper = await connect();
@@ -81,17 +80,6 @@ describe("Order services", () => {
     expect(order).toHaveProperty("_id");
     expect(order.totalPrice).toBe(450);
   });
-
-//   test("getOrderById - should find one order by id", async () => {
-//     const token = await createAdminWithToken();
-//     const testOrder = await createOrderAsUser(token);
-
-//     const order = await OrdersService.getOrderById(
-//       testOrder._id.toString()
-//     );
-
-//     expect(order).toHaveProperty("_id");
-//   });
 
   test("deleteAllOrders - admin only", async () => {
     const adminToken = await createAdminWithToken();

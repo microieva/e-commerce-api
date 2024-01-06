@@ -7,30 +7,30 @@ jest.mock('../utils/connectDb', () => {
   }
 })
 async function connect() {
-  const mongod = await MongoMemoryServer.create()
-  const uri = await mongod.getUri()
+  const mongod = await MongoMemoryServer.create();
+  const uri = await mongod.getUri();
 
-  await mongoose.connect(uri)
+  await mongoose.connect(uri);
 
   return {
     closeDatabase: async () => {
-      await mongoose.connection.dropDatabase()
-      await mongoose.connection.close()
-      await mongod.stop()
-      await mongoose.disconnect()
+      await mongoose.connection.dropDatabase();
+      await mongoose.connection.close();
+      await mongod.stop();
+      await mongoose.disconnect();
     },
     clearDatabase: async () => {
-      const collections = mongoose.connection.collections
+      const collections = mongoose.connection.collections;
 
       for (const key in collections) {
-        const collection = collections[key]
-        await collection.deleteMany({}) // Ensure await here
+        const collection = collections[key];
+        await collection.deleteMany({});
       }
     },
   }
 }
 
-export default connect
+export default connect;
 
 export type MongoHelper = {
   closeDatabase: () => Promise<void>

@@ -1,12 +1,19 @@
-import UserService from "../../services/usersService";
+import UsersService from "../../services/usersService";
 import UsersRepo from "../../models/User"
 import connect, { MongoHelper } from "../dbHelper";
+import { createAdminWithToken } from "../__fixtures__/createAdminWithToken";
+import { createUserWithToken } from "../__fixtures__/createUserWithToken";
 
 describe("User services", () => {
   let mongoHelper: MongoHelper;
 
   beforeAll(async () => {
     mongoHelper = await connect();
+  });
+
+  beforeEach(async ()=> {
+    await createAdminWithToken();
+    await createUserWithToken();
   });
 
   afterEach(async () => {
@@ -17,89 +24,64 @@ describe("User services", () => {
     await mongoHelper.closeDatabase();
   });
 
-  it("should create a new user", async () => {
+  test("getAllUsers - admin only", async ()=> {
+    const users = await UsersService.getAllUsers();
+    expect(users.length).toBe(2);
+  });
 
-    const newUser = await UserService.createUser({
-        id:"112",
-        name: "user",
-        email:"user@email.com",
-        password:"122345",
-        avatar:"",
-        role:"CUSTOMER"
-      });
+  test("getUserById - should find user by id", async () => {
+    const users = await UsersService.getAllUsers();
+
+    const user = await UsersService.getUserById(users[0]._id.toString());
+    expect(user?.name).toBe("Test Admin");
+  });
+
+  test("createUser - on signup, should create a new user", async () => {
+
+    const newUser = await UsersService.createUser({
+      id:"112",
+      name: "user",
+      email:"user@email.com",
+      password:"122345",
+      avatar:"https://api.lorem.space/image/face?w=640&h=480&r=867",
+      role:"CUSTOMER"
+    });
     expect(newUser).toHaveProperty("_id");
     expect(newUser.name).toEqual("user");
   });
 
-  it("should return a list", async () => {
+  test("getToken - should return token", async () => {
+    const testToken = await UsersService.getToken({
+      id:"112",
+      name: "user",
+      email:"user@email.com",
+      avatar:"https://api.lorem.space/image/face?w=640&h=480&r=867",
+      role:"CUSTOMER"
+    })
 
-    const newUser = new UsersRepo({
-        name: "user",
-        email:"user@email.com",
-        password:"122345"
-    });
-
-    await newUser.save();
-    const users = await UserService.getAllUsers();
-    expect(users.length).toEqual(1);
+     expect(testToken).not.toBe(null);
   });
 
-  it("should find user by id", async () => {
+  test('updateUser - Should update user', async () => {
+    const users = await UsersService.getAllUsers();
 
-    const newUser = new UsersRepo({
-        name: "user",
-        email:"user@email.com",
-        password:"122345"
-    });
-
-    await newUser.save();
-    const user = await UserService.getUserById(newUser._id.toString());
-    expect(user).toMatchObject({
-        name: "user",
-    });
-  });
-
-  it("should return token", async () => {
-    const token = await UserService.getToken({
-        id:"112",
-        name: "user",
-        email:"user@email.com",
-        avatar:"",
-        role:"CUSTOMER"
-    });
-     expect(token).not.toBe(null);
-  });
-
-  it('Should update user', async () => {
-    const newUser = await UserService.createUser({
-        id:"112",
-        name: "user",
-        email:"user@email.com",
-        password:"122345",
-        avatar:"",
-        role:"CUSTOMER"
-      });
-
-    const userUpdates = {
+    const updates = {
         name: "UPDATED NAME"
     }
-    const id = newUser._id.toString()
-    const updatedUser = await UserService.updateUser(id, userUpdates);
-    expect(updatedUser).toMatchObject(userUpdates);
-  })
-  it('Should delete user', async () => {
-    const newUser = await UserService.createUser({
-        id:"112",
-        name: "user",
-        email:"user@email.com",
-        password:"122345",
-        avatar:"",
-        role:"CUSTOMER"
-      });
+    const id = users[0]._id.toString()
+    const updatedUser = await UsersService.updateUser(id, updates);
+    expect(updatedUser?.name).toBe("UPDATED NAME");
+  });
 
-    const id = newUser._id.toString()
-    await UserService.deleteUser(id);
-    const deleted = await UsersRepo.findById(id)
+  test('deleteUser - should delete user by id', async () => {
+    const users = await UsersService.getAllUsers();
+
+    const id = users[1]._id.toString()
+    await UsersService.deleteUser(id);
+    const deleted = await UsersRepo.findById(id);
+    const usersAfterDeleting = await UsersService.getAllUsers();
+    
     expect(deleted).toBe(null);
+    expect(usersAfterDeleting.length).toBe(1);
   })
 });

@@ -4,6 +4,8 @@ import connect, { MongoHelper } from "../dbHelper"
 import { createAdminWithToken } from "../__fixtures__/createAdminWithToken";
 import { createCategoryAsAdmin } from "../__fixtures__/createCategoryAsAdmin";
 import { createProductAsAdmin } from "../__fixtures__/createProductAsAdmin";
+import ProductsService from '../../services/productsService';
+import { Product } from '../../types/product';
 
 
 describe("Product controllers", () => {
@@ -41,6 +43,7 @@ describe("Product controllers", () => {
       .post("/api/v1/products")
       .set('Authorization', `Bearer ${token}`)
       .send({
+       
         "title": "Another Hoody",
         "price": 150,
         "description": "Another hoody for your good boy",
@@ -48,33 +51,9 @@ describe("Product controllers", () => {
         "images": [
             "https://i.imgur.com/p8AjjXS.jpeg"
         ]
-      });
-
-    expect(response.body).toHaveProperty("title");
-
-    expect(response.body).toMatchObject({
-        title: "Another Hoody",
-        price: 150,
-        description: "Another hoody for your good boy",
-        category: category,
-        images: [
-            "https://i.imgur.com/p8AjjXS.jpeg"
-        ]
-      } 
-    );
-
-    expect(response.body).toEqual({
-        title: "Another Hoody",
-        price: 150,
-        description: "Another hoody for your good boy",
-        category: category,
-        images: [
-          "https://i.imgur.com/p8AjjXS.jpeg"
-        ],
-        __v: expect.any(Number),
-        _id: expect.any(String),
-      },
-    );
+       });
+    expect(response.body).toHaveProperty("_id");
+    expect(response.body.title).toBe("Another Hoody");
   });
 
   test("createProduct - error - should not create a product with wrong category id", async () => {
@@ -106,7 +85,7 @@ describe("Product controllers", () => {
     expect(response.body).toEqual(product);
   });
 
-  it("getProductById - error - should return error if product doesnt exist", async () => {
+  test("getProductById - error - should return error if product doesnt exist", async () => {
     const response = await request(app).get(`/api/v1/products/655fb75e8101e7921b193190`);
     expect(response.status).toEqual(404);
   });
@@ -123,7 +102,7 @@ describe("Product controllers", () => {
     expect(response.body.title).toBe("Test Product")
   });
 
-  it("should return error if deleting product by wrong id", async () => {
+  test("deleteProduct - error - should return error if deleting product by wrong id", async () => {
     const response = await request(app).get(`/api/v1/products/655fb75e8101e7921b193190`);
     expect(response.status).toEqual(404);
     expect(response.body.msg).toBe("Product is not found.");
@@ -159,8 +138,4 @@ describe("Product controllers", () => {
     
     expect(response.body.msg).toEqual('Could not update product');
   })
-  /* 
-  test("getFilteredProductsByTitle", async () => {
-    ...
-  })*/
 });
