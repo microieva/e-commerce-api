@@ -8,6 +8,7 @@ const OrderSchema = new Schema({
     ref: "User"
   },
   totalPrice: Number,
+  createdAt: String,
   paid: {
     type: Boolean,
     default: false
