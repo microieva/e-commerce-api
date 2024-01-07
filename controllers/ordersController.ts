@@ -58,14 +58,14 @@ async function createOrder(
         next(ApiError.internal("Order could not be created"));
         return;
     }
-    const orderId = data._id
+    const orderId = data._id;
 
     await Promise.all(
         arr.map(async (item) => {
             const orderItem = new Item({
                 orderId,
                 productId: item.id,
-                quantity: item.quantity,
+                quantity: item.quantity
             });
             const savedItem = await ItemRepo.create(orderItem);
 

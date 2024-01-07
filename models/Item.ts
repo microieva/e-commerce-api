@@ -11,7 +11,7 @@ export const ItemSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Order"
   },
-  quantity: Number,
+  quantity: Number
 })
 
 export default mongoose.model("Item", ItemSchema, "items")
