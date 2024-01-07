@@ -36,7 +36,8 @@ async function getOrderItems(orderId: string) {
 
 async function createOrder(userId: string, totalPrice: number) {
     const id = new mongoose.Types.ObjectId(userId);
-    const newOrder = new OrdersRepo({ userId: id, totalPrice });
+    const createdAt = new Date().toISOString();
+    const newOrder = new OrdersRepo({ userId: id, totalPrice, createdAt });
     return await newOrder.save();
 }
 
