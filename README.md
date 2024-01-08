@@ -44,7 +44,7 @@ All other API errors return as:
 
 ### Products
 
-[GET]: https://e-commerce-api-atbv.onrender.com/api/v1/products
+GET: https://e-commerce-api-atbv.onrender.com/api/v1/products
 
 #### Request
     -
@@ -71,7 +71,7 @@ All other API errors return as:
     ]
 ```
 
-[GET]: https://e-commerce-api-atbv.onrender.com/api/v1/products/657b2a07c2c284616fa0db4e
+GET: https://e-commerce-api-atbv.onrender.com/api/v1/products/657b2a07c2c284616fa0db4e
 
 #### Request
     -
@@ -95,7 +95,7 @@ All other API errors return as:
     }
 ```
 
-[POST]: https://e-commerce-api-atbv.onrender.com/api/v1/products/ - protected (admin only)
+POST: https://e-commerce-api-atbv.onrender.com/api/v1/products/ - protected (admin only)
 
 #### Request
 
@@ -136,7 +136,7 @@ All other API errors return as:
 }
 ```
 
-[PUT]: https://e-commerce-api-atbv.onrender.com/api/v1/products/659bffeab41bb9f3f98e25d5 - protected (admin only)
+PUT: https://e-commerce-api-atbv.onrender.com/api/v1/products/659bffeab41bb9f3f98e25d5 - protected (admin only)
 
 #### Request
 
@@ -164,7 +164,7 @@ All other API errors return as:
 }
 ```
 
-[DELETE]: https://e-commerce-api-atbv.onrender.com/api/v1/products/659bffeab41bb9f3f98e25d5 - protected (admin only)
+DELETE: https://e-commerce-api-atbv.onrender.com/api/v1/products/659bffeab41bb9f3f98e25d5 - protected (admin only)
 
 #### Request
 
@@ -196,7 +196,7 @@ All other API errors return as:
 
 ### Categories
 
-[GET]: https://e-commerce-api-atbv.onrender.com/api/v1/categories - protected (admin only)
+GET: https://e-commerce-api-atbv.onrender.com/api/v1/categories - protected (admin only)
 
 #### Request
     -
@@ -214,7 +214,7 @@ All other API errors return as:
 ]
 ```
 
-[GET]: https://e-commerce-api-atbv.onrender.com/api/v1/categories/657b26f4b8846066b7cf5961 - protected (admin only)
+GET: https://e-commerce-api-atbv.onrender.com/api/v1/categories/657b26f4b8846066b7cf5961 - protected (admin only)
 
 #### Request
     -
@@ -230,7 +230,7 @@ All other API errors return as:
 }
 ```
 
-[POST]: https://e-commerce-api-atbv.onrender.com/api/v1/categories/ - protected (admin only)
+POST: https://e-commerce-api-atbv.onrender.com/api/v1/categories/ - protected (admin only)
 
 #### Request
 
@@ -252,7 +252,7 @@ All other API errors return as:
 }
 ```
 
-[PUT]: https://e-commerce-api-atbv.onrender.com/api/v1/categories/659c04ffb41bb9f3f98e25e0 - protected (admin only)
+PUT: https://e-commerce-api-atbv.onrender.com/api/v1/categories/659c04ffb41bb9f3f98e25e0 - protected (admin only)
 
 #### Request
 
@@ -273,7 +273,7 @@ All other API errors return as:
 }
 ```
 
-[DELETE]: https://e-commerce-api-atbv.onrender.com/api/v1/categories/659c04ffb41bb9f3f98e25e0 - protected (admin only)
+DELETE: https://e-commerce-api-atbv.onrender.com/api/v1/categories/659c04ffb41bb9f3f98e25e0 - protected (admin only)
 
 #### Request
 
@@ -289,7 +289,7 @@ All other API errors return as:
 
 ### Authentication
 
-[POST]: https://e-commerce-api-atbv.onrender.com/api/v1/auth/login
+POST: https://e-commerce-api-atbv.onrender.com/api/v1/auth/login
 
 #### Request
 ```
@@ -303,7 +303,7 @@ All other API errors return as:
 
 "eyJhbGciOiJIUzI1NiIsI ..."
 
-[POST]: https://e-commerce-api-atbv.onrender.com/api/v1/auth/signup
+POST: https://e-commerce-api-atbv.onrender.com/api/v1/auth/signup
 
 #### Request
 ```
@@ -321,7 +321,7 @@ All other API errors return as:
 
 ### Users
 
-[GET]: https://e-commerce-api-atbv.onrender.com/api/v1/users - protected (admin only)
+GET: https://e-commerce-api-atbv.onrender.com/api/v1/users - protected (admin only)
 
 #### Request
     -
@@ -342,7 +342,7 @@ All other API errors return as:
 ]
 ```
 
-[GET]: https://e-commerce-api-atbv.onrender.com/api/v1/users/6579c2f36cb45cc0224a73cc - protected
+GET: https://e-commerce-api-atbv.onrender.com/api/v1/users/6579c2f36cb45cc0224a73cc - protected
 
 #### Request
     -
@@ -358,7 +358,7 @@ All other API errors return as:
 }
 ```
 
-[GET]: https://e-commerce-api-atbv.onrender.com/api/v1/users/profile - protected
+GET: https://e-commerce-api-atbv.onrender.com/api/v1/users/profile - protected
 
 #### Request
     -
@@ -374,7 +374,7 @@ All other API errors return as:
 }
 ```
 
-[PUT]: https://e-commerce-api-atbv.onrender.com/api/v1/users/6579c2f36cb45cc0224a73cc - protected
+PUT: https://e-commerce-api-atbv.onrender.com/api/v1/users/6579c2f36cb45cc0224a73cc - protected
 
 #### Request
 
@@ -395,7 +395,7 @@ All other API errors return as:
 }
 ```
 
-[DELETE]: https://e-commerce-api-atbv.onrender.com/api/v1/users/6579c2f36cb45cc0224a73cc - protected
+DELETE: https://e-commerce-api-atbv.onrender.com/api/v1/users/6579c2f36cb45cc0224a73cc - protected
 
 #### Request
 
@@ -414,7 +414,7 @@ All other API errors return as:
 
 ### Orders
 
-[GET]: https://e-commerce-api-atbv.onrender.com/api/v1/orders - protected (admin only)
+GET: https://e-commerce-api-atbv.onrender.com/api/v1/orders - protected (admin only)
 
 #### Request
     -
@@ -434,7 +434,7 @@ All other API errors return as:
 ]
 ```
 
-[GET]: https://e-commerce-api-atbv.onrender.com/api/v1/orders/user/6579c2f36cb45cc0224a73cc - protected
+GET: https://e-commerce-api-atbv.onrender.com/api/v1/orders/user/6579c2f36cb45cc0224a73cc - protected
 
 #### Request
     -
@@ -454,7 +454,7 @@ All other API errors return as:
 ]
 ```
 
-[GET]: https://e-commerce-api-atbv.onrender.com/api/v1/orders/items/659bd823ec4ba207afc018d2 - protected
+GET: https://e-commerce-api-atbv.onrender.com/api/v1/orders/items/659bd823ec4ba207afc018d2 - protected
 
 #### Request
     -
@@ -483,7 +483,7 @@ All other API errors return as:
     ...
 ]
 ```
-[POST]: https://e-commerce-api-atbv.onrender.com/api/v1/orders/checkout/6579c2f36cb45cc0224a73cc - protected
+POST: https://e-commerce-api-atbv.onrender.com/api/v1/orders/checkout/6579c2f36cb45cc0224a73cc - protected
 
 #### Request
 
@@ -510,7 +510,7 @@ All other API errors return as:
 ```
 
 
-[PUT]: https://e-commerce-api-atbv.onrender.com/api/v1/orders/order/659c0dec22d99360b7217154 - protected
+PUT: https://e-commerce-api-atbv.onrender.com/api/v1/orders/order/659c0dec22d99360b7217154 - protected
 
 #### Request
 
@@ -533,7 +533,7 @@ All other API errors return as:
 }
 ```
 
-[DELETE]: https://e-commerce-api-atbv.onrender.com/api/v1/orders/659c0dec22d99360b7217154 - protected
+DELETE: https://e-commerce-api-atbv.onrender.com/api/v1/orders/659c0dec22d99360b7217154 - protected
 
 #### Request
 
@@ -547,7 +547,7 @@ All other API errors return as:
 }
 ```
 
-[DELETE]: https://e-commerce-api-atbv.onrender.com/api/v1/orders/user/6579c2f36cb45cc0224a73cc - protected
+DELETE: https://e-commerce-api-atbv.onrender.com/api/v1/orders/user/6579c2f36cb45cc0224a73cc - protected
 
 #### Request
 
@@ -561,7 +561,7 @@ All other API errors return as:
 }
 ```
 
-[DELETE]: https://e-commerce-api-atbv.onrender.com/api/v1/orders/orders/ - protected (admin only)
+DELETE: https://e-commerce-api-atbv.onrender.com/api/v1/orders/orders/ - protected (admin only)
 
 #### Request
 
