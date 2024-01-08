@@ -36,7 +36,7 @@ async function getOrderItems(orderId: string) {
 
 async function createOrder(userId: string, totalPrice: number) {
     const id = new mongoose.Types.ObjectId(userId);
-    const createdAt = new Date().toISOString();
+    const createdAt = new Date().toLocaleString('fi-FI', { timeZone: 'Europe/Helsinki' });
     const newOrder = new OrdersRepo({ userId: id, totalPrice, createdAt });
     return await newOrder.save();
 }
