@@ -584,14 +584,3 @@ DELETE: https://e-commerce-api-atbv.onrender.com/api/v1/orders/orders/ - protect
     "msg": "All orders (and order items) deleted successfuly"
 }
 ```
-<<<<<<< HEAD
->>>>>>> 47c3bf7 (readme initial version)
-=======
-=======
-[Public Route to Products](https://e-commerce-api-atbv.onrender.com/api/v1/products)
-
-## Repo
-
-[Public Repo](https://github.com/microieva/e-commerce-api/tree/main)
->>>>>>> 679637d (links in readme)
->>>>>>> fdf429c (dosumentation initial)
