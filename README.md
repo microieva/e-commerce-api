@@ -73,16 +73,6 @@ GET: https://e-commerce-api-atbv.onrender.com/api/v1/products
 
 GET: https://e-commerce-api-atbv.onrender.com/api/v1/products/657b2a07c2c284616fa0db4e
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-[Public Route to Products](https://e-commerce-api-atbv.onrender.com/api/v1/products)
-
-## Repo
-
-[Public Repo](https://github.com/microieva/e-commerce-api/tree/main)
-=======
-=======
->>>>>>> fdf429c (dosumentation initial)
 #### Request
     -
 
