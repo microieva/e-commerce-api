@@ -98,7 +98,6 @@ GET: https://e-commerce-api-atbv.onrender.com/api/v1/products/657b2a07c2c284616f
 
 POST: https://e-commerce-api-atbv.onrender.com/api/v1/products/ - protected (admin only)
 
-
 #### Request
 
 ```
@@ -140,7 +139,6 @@ POST: https://e-commerce-api-atbv.onrender.com/api/v1/products/ - protected (adm
 
 PUT: https://e-commerce-api-atbv.onrender.com/api/v1/products/659bffeab41bb9f3f98e25d5 - protected (admin only)
 
-
 #### Request
 
 ```
@@ -168,7 +166,6 @@ PUT: https://e-commerce-api-atbv.onrender.com/api/v1/products/659bffeab41bb9f3f9
 ```
 
 DELETE: https://e-commerce-api-atbv.onrender.com/api/v1/products/659bffeab41bb9f3f98e25d5 - protected (admin only)
-
 
 #### Request
 
@@ -202,7 +199,6 @@ DELETE: https://e-commerce-api-atbv.onrender.com/api/v1/products/659bffeab41bb9f
 
 GET: https://e-commerce-api-atbv.onrender.com/api/v1/categories - protected (admin only)
 
-
 #### Request
     -
 
@@ -221,7 +217,6 @@ GET: https://e-commerce-api-atbv.onrender.com/api/v1/categories - protected (adm
 
 GET: https://e-commerce-api-atbv.onrender.com/api/v1/categories/657b26f4b8846066b7cf5961 - protected (admin only)
 
-
 #### Request
     -
 
@@ -237,7 +232,6 @@ GET: https://e-commerce-api-atbv.onrender.com/api/v1/categories/657b26f4b8846066
 ```
 
 POST: https://e-commerce-api-atbv.onrender.com/api/v1/categories/ - protected (admin only)
-
 
 #### Request
 
@@ -260,7 +254,6 @@ POST: https://e-commerce-api-atbv.onrender.com/api/v1/categories/ - protected (a
 ```
 
 PUT: https://e-commerce-api-atbv.onrender.com/api/v1/categories/659c04ffb41bb9f3f98e25e0 - protected (admin only)
-
 
 #### Request
 
@@ -337,7 +330,6 @@ POST: https://e-commerce-api-atbv.onrender.com/api/v1/auth/signup
 
 GET: https://e-commerce-api-atbv.onrender.com/api/v1/users - protected (admin only)
 
-
 #### Request
     -
 
@@ -359,7 +351,6 @@ GET: https://e-commerce-api-atbv.onrender.com/api/v1/users - protected (admin on
 
 GET: https://e-commerce-api-atbv.onrender.com/api/v1/users/6579c2f36cb45cc0224a73cc - protected
 
-
 #### Request
     -
 
@@ -376,7 +367,6 @@ GET: https://e-commerce-api-atbv.onrender.com/api/v1/users/6579c2f36cb45cc0224a7
 
 GET: https://e-commerce-api-atbv.onrender.com/api/v1/users/profile - protected
 
-
 #### Request
     -
 
@@ -392,7 +382,6 @@ GET: https://e-commerce-api-atbv.onrender.com/api/v1/users/profile - protected
 ```
 
 PUT: https://e-commerce-api-atbv.onrender.com/api/v1/users/6579c2f36cb45cc0224a73cc - protected
-
 
 #### Request
 
@@ -415,7 +404,6 @@ PUT: https://e-commerce-api-atbv.onrender.com/api/v1/users/6579c2f36cb45cc0224a7
 
 DELETE: https://e-commerce-api-atbv.onrender.com/api/v1/users/6579c2f36cb45cc0224a73cc - protected
 
-
 #### Request
 
     -
@@ -434,7 +422,6 @@ DELETE: https://e-commerce-api-atbv.onrender.com/api/v1/users/6579c2f36cb45cc022
 ### Orders
 
 GET: https://e-commerce-api-atbv.onrender.com/api/v1/orders - protected (admin only)
-
 
 #### Request
     -
@@ -456,7 +443,6 @@ GET: https://e-commerce-api-atbv.onrender.com/api/v1/orders - protected (admin o
 
 GET: https://e-commerce-api-atbv.onrender.com/api/v1/orders/user/6579c2f36cb45cc0224a73cc - protected
 
-
 #### Request
     -
 
@@ -476,7 +462,6 @@ GET: https://e-commerce-api-atbv.onrender.com/api/v1/orders/user/6579c2f36cb45cc
 ```
 
 GET: https://e-commerce-api-atbv.onrender.com/api/v1/orders/items/659bd823ec4ba207afc018d2 - protected
-
 
 #### Request
     -
@@ -505,9 +490,7 @@ GET: https://e-commerce-api-atbv.onrender.com/api/v1/orders/items/659bd823ec4ba2
     ...
 ]
 ```
-
 POST: https://e-commerce-api-atbv.onrender.com/api/v1/orders/checkout/6579c2f36cb45cc0224a73cc - protected
-
 
 #### Request
 
@@ -559,7 +542,6 @@ PUT: https://e-commerce-api-atbv.onrender.com/api/v1/orders/order/659c0dec22d993
 
 DELETE: https://e-commerce-api-atbv.onrender.com/api/v1/orders/659c0dec22d99360b7217154 - protected
 
-
 #### Request
 
     -
@@ -573,7 +555,6 @@ DELETE: https://e-commerce-api-atbv.onrender.com/api/v1/orders/659c0dec22d99360b
 ```
 
 DELETE: https://e-commerce-api-atbv.onrender.com/api/v1/orders/user/6579c2f36cb45cc0224a73cc - protected
-
 
 #### Request
 
