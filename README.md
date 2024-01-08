@@ -73,7 +73,6 @@ GET: https://e-commerce-api-atbv.onrender.com/api/v1/products
 
 GET: https://e-commerce-api-atbv.onrender.com/api/v1/products/657b2a07c2c284616fa0db4e
 
-
 #### Request
     -
 
@@ -581,4 +580,3 @@ DELETE: https://e-commerce-api-atbv.onrender.com/api/v1/orders/orders/ - protect
     "msg": "All orders (and order items) deleted successfuly"
 }
 ```
-
