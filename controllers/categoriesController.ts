@@ -36,13 +36,13 @@ export async function createCategory(
   res: Response,
   next: NextFunction
 ) {
-  try {
     const newCategory = req.body;
-    const category = await CategoriesService.createCategory(newCategory);
-    res.status(201).json({ category });
-  } catch (error: any) {
-    res.status(500).json({ msg: "something went wrong" });
-  }
+    const data = await CategoriesService.createCategory(newCategory);
+    if (!data) {
+      next(ApiError.internal("Category could not be created"));
+      return;
+    }
+    res.status(201).json(data);
 }
 
 export async function updateCategory(
@@ -59,11 +59,11 @@ export async function updateCategory(
     return;
   }
 
-  const result = await CategoriesService.updateCategory(
+  const data = await CategoriesService.updateCategory(
     categoryId,
     categoryData
   );
-  res.status(200).json({ result });
+  res.status(200).json(data);
 }
 
 export async function deleteCategory(
@@ -79,8 +79,13 @@ export async function deleteCategory(
     return;
   }
 
-  CategoriesService.deleteCategory(categoryId);
-  res.status(200).json({ category });
+  await CategoriesService.deleteCategory(categoryId);
+    const deletedCategory = await CategoriesService.getCategoryById(categoryId);
+    if (deletedCategory !== null) {
+      next(ApiError.internal("Deleting failed")); 
+      return;
+    }
+    res.json({msg: "Category was deleted successfuly"});
 }
 
 export default {

@@ -1,60 +1,27 @@
+import mongoose from "mongoose";
 import connect, { MongoHelper } from "../dbHelper";
 import CategoryRepo from "../../models/Category";
-import ProductRepo from "../../models/Product";
 import ProductsService from "../../services/productsService";
-import {Category} from "../../types/category";
 import { ProductToCreate } from "product";
-import mongoose from "mongoose";
+import { createAdminWithToken } from "../__fixtures__/createAdminWithToken";
+import { createProductAsAdmin } from "../__fixtures__/createProductAsAdmin";
 
-describe("Category controller", () => {
+describe("Product services", () => {
   let mongoHelper: MongoHelper;
+  let hoody1: mongoose.Document;
+  let productId: string;
 
-  let productOne: mongoose.Document;
-  let productTwo: mongoose.Document;
-  let productThree: mongoose.Document;
-  let category: Category;
-
-  beforeEach(async () => {
-    const categoryInstance = new CategoryRepo({
-      name: "Clothes",
-      image: "https://api.lorem.space/image/fashion?w=640&h=480&r=4278"
-    });
-
-    const category = await categoryInstance.save();
-    const firstHoody = new ProductRepo({
-      title: "Hoodie1",
-      price: 150,
-      description: "Cool hoodie for your good boy",
-      categoryId: category.id,
-      images: [
-          "https://i.imgur.com/p8AjjXS.jpeg"
-      ]
-    });
-    const secondHoody = new ProductRepo({
-      name: "Hoodie2",
-      description: "Cool hoodie for your good boy",
-      price: 80,
-      categoryId: category.id,
-      images: [
-        "https://i.imgur.com/p8AjjXS.jpeg"
-    ]
-    });
-    const thirdHoody = new ProductRepo({
-      name: "Hoodie3",
-      description: "Cool hoodie for your good boy",
-      price: 54,
-      categoryId: category.id,
-      images: [
-        "https://i.imgur.com/p8AjjXS.jpeg"
-      ]
-    });
-    productOne = await firstHoody.save();
-    productTwo = await secondHoody.save();
-    productThree = await thirdHoody.save();
-  });
 
   beforeAll(async () => {
     mongoHelper = await connect();
+  });
+
+  beforeEach(async () => {
+    const adminToken = await createAdminWithToken();
+    hoody1 = await createProductAsAdmin(adminToken);
+    productId = hoody1._id;
+    await createProductAsAdmin(adminToken);
+    await createProductAsAdmin(adminToken);
   });
 
   afterEach(async () => {
@@ -65,12 +32,25 @@ describe("Category controller", () => {
     await mongoHelper.closeDatabase();
   });
 
-  it("should create a new product", async () => {
+
+  test("getProducts - should return list of 3 products", async () => {
+    const products = await ProductsService.getProducts();
+    expect(products.length).toEqual(3);
+  });
+
+  test("createProduct - should create a new product", async () => {
+    const testCategory = new CategoryRepo({
+      name: "Clothes",
+      image: "https://api.lorem.space/image/fashion?w=640&h=480&r=4278"
+    });
+
+    const category = await testCategory.save();
+    const categoryId = category._id.toString();
     const product: ProductToCreate = {
         title: "Another Hoody",
         price: 150,
-        description: "Another hoodie for your good boy",
-        categoryId: category._id,
+        description: "Another hoody for your good boy",
+        categoryId,
         images: [
             "https://i.imgur.com/p8AjjXS.jpeg"
         ]
@@ -80,35 +60,53 @@ describe("Category controller", () => {
     expect(newProduct?.title).toEqual("Another Hoody");
   });
 
-  it("should return a list of products", async () => {
-    const products = await ProductsService.getAllProducts();
-    expect(products.length).toEqual(3);
+  test("getProductById - should find one product", async () => {
+    const product = await ProductsService.getProductById(productId);
+
+    expect(product?.title).toEqual("Test Product");
+    expect(product?.description).toEqual("New product in our shop!");
   });
 
-  it("should find one product", async () => {
-    const foundProduct = await ProductsService.getProductById(
-      productOne._id.toString()
-    );
-    expect(foundProduct?.title).toEqual("Hoody1");
-    expect(foundProduct?.description).toEqual("Cool hoodie for your good boy");
-  });
-
-  it("should update product", async () => {
+  test("updateProduct - should update existing product", async () => {
     const updatedProduct = await ProductsService.updateProduct(
-      productOne._id.toString(),
-      { title: "Fantastic Hoodie" }
+      productId.toString(),
+      { title: "UPDATED TITLE" }
     );
-    expect(updatedProduct?.title).toEqual("Fantastic Hoodie");
+    expect(updatedProduct?.title).toEqual("UPDATED TITLE");
   });
 
-  it("should delete one product", async () => {
-    await ProductsService.deleteProduct(productOne._id.toString());
-    const products = await ProductsService.getAllProducts();
+  test("deleteProduct - should delete exisiting product", async () => {
+    await ProductsService.deleteProduct(productId);
+    const products = await ProductsService.getProducts();
     expect(products.length).toEqual(2);
   });
-  /*
+
+  test("getTotalPrice - should return a sum", async () => {
+
+    const testOrderItems = [
+      {
+        id: productId,
+        quantity: 2
+      }
+    ]
+    const totalPrice = await ProductsService.getTotalPrice(testOrderItems);
+    expect(totalPrice).toBe(300);
+  });
+
   test("getFilteredProductsByTitlte", async () => {
-    ....
-  })
-  */
+    const products = await ProductsService.getProducts();
+    await ProductsService.updateProduct(
+      productId,
+      {
+        title: "Test Search"
+      }
+    )
+    const query1 = "Test";
+    const searchResult1 = await ProductsService.getFilteredProductsByTitle(query1);
+    expect(searchResult1.length).toBe(products.length);
+
+    const query2 = "Product";
+    const searchResult2 = await ProductsService.getFilteredProductsByTitle(query2);
+    expect(searchResult2.length).toBe(products.length-1);
+  }); 
 });

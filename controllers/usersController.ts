@@ -13,7 +13,7 @@ async function getAllUsers(_: Request, res: Response, next: NextFunction) {
     next(ApiError.resourceNotFound("No collection"));
     return;
   }
-  res.json({ users });
+  res.json(users);
 }
 
 async function getUserById(
