@@ -2,18 +2,17 @@
 import request from "supertest";
 import app from "../..";
 
-export async function createAdminWithToken() {
-  const testAdmin = {
-    name: "Test Admin",
-    email: "admin@email.com",
-    password: "admin123",
-    role: "ADMIN",
+export async function createUserWithToken() {
+  const testUser = {
+    name: "Test User",
+    email: "user@email.com",
+    password: "user123",
     avatar: "https://api.lorem.space/image/face?w=640&h=480&r=867"
   }
 
   const response = await request(app)
     .post("/api/v1/auth/signup")
-    .send(testAdmin);
-
+    .send(testUser);
+    
   return response.body;
 }

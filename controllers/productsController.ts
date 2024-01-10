@@ -2,8 +2,8 @@ import { NextFunction, Request, Response } from "express"
 import ProductsService from "../services/productsService"
 import { ApiError } from "../errors/ApiError"
 
-export async function getAllProducts(_: Request, res: Response) {
-  const data = await ProductsService.getAllProducts()
+export async function getProducts(_: Request, res: Response) {
+  const data = await ProductsService.getProducts()
   res.json(data)
 }
 
@@ -92,7 +92,7 @@ export async function updateProduct(
 }
 
 export default {
-  getAllProducts,
+  getProducts,
   getProductById,
   getFilteredProductsByTitle,
   createProduct,
