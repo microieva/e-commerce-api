@@ -1,9 +1,10 @@
 import app from "..";
+import { connectDb } from "./connectDb";
 
 const PORT = 8080;
 
-const server = app.listen(PORT, () => {
+app.listen(PORT, () => {
     console.log(`👀 app is running at localhost:${PORT}`);
 });
 
-export default server;
+connectDb();
