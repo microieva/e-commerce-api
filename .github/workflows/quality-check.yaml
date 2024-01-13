@@ -1,5 +1,4 @@
 name: Quality Check
-
 on:
   push:
     branches:
@@ -7,47 +6,32 @@ on:
       - devops/git-actions
 
 jobs:
-  install-packages:
+  build:
+    name: build
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [21]
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Node.js
+      - name: Setup Node.js environment
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: yarn
+          node-version: [21.x]
 
-      - name: Install dependencies
-        run: yarn install
-
-  run-tests:
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [21]
-
-    needs: install-packages
-
-    steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        id: yarn-cache 
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: yarn
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
 
-      - name: Install dependencies
-        run: yarn install
+      - name: Install
+        run: yarn install --frozen-lockfile
 
-      - name: Run tests
-        run: yarn run test
+      - name: Test
+        run: yarn test
