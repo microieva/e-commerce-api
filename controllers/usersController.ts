@@ -8,12 +8,12 @@ import { AuthRequest, LoginRequest } from "../types/auth"
 import { TokenPayload } from "../types/auth"
 
 async function getAllUsers(_: Request, res: Response, next: NextFunction) {
-  const users = await UsersService.getAllUsers();
-  if (!users) {
+  const data = await UsersService.getAllUsers();
+  if (!data) {
     next(ApiError.resourceNotFound("No collection"));
     return;
   }
-  res.json(users);
+  res.json(data);
 }
 
 async function getUserById(
@@ -81,8 +81,9 @@ async function login(
     next(ApiError.resourceNotFound("Not in the system, please signup first"));
     return;
   }
+
   const isValid = await bcrypt.compare(loginRequest.password, user.password as string);
-  
+
   if (!isValid) {
     next(ApiError.unauthorized("Invalid password"));
     return;

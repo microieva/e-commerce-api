@@ -14,6 +14,5 @@ export async function createAdminWithToken() {
   const response = await request(app)
     .post("/api/v1/auth/signup")
     .send(testAdmin);
-
   return response.body;
 }

@@ -4,8 +4,6 @@ import connect, { MongoHelper } from "../dbHelper"
 import { createAdminWithToken } from "../__fixtures__/createAdminWithToken";
 import { createCategoryAsAdmin } from "../__fixtures__/createCategoryAsAdmin";
 import { createProductAsAdmin } from "../__fixtures__/createProductAsAdmin";
-import ProductsService from '../../services/productsService';
-import { Product } from '../../types/product';
 
 
 describe("Product controllers", () => {
@@ -42,8 +40,7 @@ describe("Product controllers", () => {
     const response = await request(app)
       .post("/api/v1/products")
       .set('Authorization', `Bearer ${token}`)
-      .send({
-       
+      .send({       
         "title": "Another Hoody",
         "price": 150,
         "description": "Another hoody for your good boy",

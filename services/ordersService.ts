@@ -23,12 +23,12 @@ async function getOrderById(orderId: string) {
 
 async function getOrderItems(orderId: string) {
     const id = new mongoose.Types.ObjectId(orderId);
-    const items = await ItemsRepo.find({ orderId });
+    const items = await ItemsRepo.find({ orderId: id });
 
     const orderItems = await Promise.all(
             items.map(async (item) => {
-                const product = await ProductsRepo.findById(item.productId).populate("category");;
-                return { ...product?.toObject(), quantity: item.quantity };
+                const product = await ProductsRepo.findById(item.productId).populate("category");
+                return { quantity: item.quantity, ...product?.toObject() };
             })
     );
     return orderItems;

@@ -1,6 +1,5 @@
 import request from "supertest";
 import app from "../../";
-import UserService from "../../services/usersService";
 import UsersRepo from "../../models/User";
 import connect, { MongoHelper } from "../dbHelper";
 import { createAdminWithToken } from "../__fixtures__/createAdminWithToken";
