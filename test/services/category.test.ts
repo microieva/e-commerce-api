@@ -1,7 +1,6 @@
-import connect, { MongoHelper } from "../dbHelper";
-import CategoryRepo from "../../models/Category";
-import CategoriesService from "../../services/categoriesService";
 import mongoose from "mongoose";
+import connect, { MongoHelper } from "../dbHelper";
+import CategoriesService from "../../services/categoriesService";
 import { createCategoryAsAdmin } from "../__fixtures__/createCategoryAsAdmin";
 import { createAdminWithToken } from "../__fixtures__/createAdminWithToken";
 

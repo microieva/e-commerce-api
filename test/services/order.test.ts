@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import connect, { MongoHelper } from "../dbHelper";
 import OrdersService from "../../services/ordersService";
 import ProductsService from "../../services/productsService";
