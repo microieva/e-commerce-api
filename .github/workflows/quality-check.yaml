@@ -2,34 +2,18 @@ name: Installing And Testing
 on:
   push:
     branches: [main, devops/git-actions]
-
+    
 jobs:
   install:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [21.x]
+    env:
+      TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: npm
-      - run: npm run install
-
-  test:
-    needs: install
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [21.x]
-    steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: npm
-      - run: npm run install
-      - run: npm run test
+      - name: Install 
+        run: yarn install
+      - name: Test
+        run: yarn test
