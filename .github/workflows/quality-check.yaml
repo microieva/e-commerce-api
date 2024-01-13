@@ -1,19 +1,50 @@
-name: Installing And Testing
+name: Quality Check
+
 on:
   push:
-    branches: [main, devops/git-actions]
-    
+    branches:
+      - main
+      - devops/git-actions
+
 jobs:
-  install:
+  install-packages:
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
-        node-version: [21.x]
-    env:
-      TOKEN_SECRET: ${{ secrets.TOKEN_SECRET }}
+        node-version: [21x]
+
     steps:
-      - uses: actions/checkout@v3
-      - name: Install 
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: yarn
+
+      - name: Install dependencies
         run: yarn install
-      - name: Test
+
+  run-tests:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [21x]
+
+    needs: install-packages
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: yarn
+
+      - name: Run tests
         run: yarn test
