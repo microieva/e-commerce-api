@@ -7,8 +7,8 @@ import { checkPermission as authorizePermission } from "../middlewares/checkPerm
 
 const router = express.Router()
 router.get("/", ProductsController.getProducts)
-router.get("/:productId", ProductsController.getProductById);
 router.get("/search/", ProductsController.getFilteredProductsByTitle)
+router.get("/:productId", ProductsController.getProductById);
 
 router.post("/",
   validateProduct,

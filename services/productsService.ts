@@ -13,12 +13,11 @@ async function getProducts() {
 
 async function getProductById(productId: string) {
   const id = new mongoose.Types.ObjectId(productId);
-  const product = await ProductsRepo.findById(id).populate("category");
-
+  const product = await ProductsRepo.findById(id).populate("category").exec();
   return product;
 }
 
-async function getFilteredProductsByTitle(title: string) {
+async function getFilteredProductsByTitle(title:string) {
   const filteredData = await ProductsRepo.find({ title: { $regex: new RegExp(title, 'i') } }).populate("category").exec();
   return filteredData;
 }
