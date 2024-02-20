@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs"
 
 import UsersRepo from "../models/User"
 import UsersService from "../services/usersService"
+import OrdersService from "../services/ordersService"
 import { ApiError } from "../errors/ApiError"
 import { AuthRequest, LoginRequest } from "../types/auth"
 import { TokenPayload } from "../types/auth"
@@ -160,6 +161,7 @@ async function deleteUser(
       next(ApiError.resourceNotFound("User that you are trying to delete does not exist")); 
       return;
     }
+    await OrdersService.deleteAllOrdersByUserId(id);
     await UsersService.deleteUser(id);
     const deletedUser = await UsersService.getUserById(id);
     if (deletedUser !== null) {

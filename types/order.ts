@@ -6,6 +6,6 @@ export interface Order {
     _id: string,
     paid: boolean,
     totalPrice: number,
-    //createdAt: new Date(),
+    createdAt: string,
     userId: string
 }
