@@ -36,6 +36,20 @@ export async function getFilteredProductsByTitle(
   res.json(data)
 }
 
+export async function getMostRecentlyOrderedProducts(
+  req: Request,
+  res: Response,
+  next: NextFunction
+){
+  
+  const data = await ProductsService.getMostRecentlyOrderedProducts()
+  if (!data) {
+    next(ApiError.resourceNotFound("No recent products yet"));
+    return;
+  }
+  res.json(data)
+}
+
 export async function createProduct(
   req: Request,
   res: Response,
@@ -99,6 +113,7 @@ export default {
   getProducts,
   getProductById,
   getFilteredProductsByTitle,
+  getMostRecentlyOrderedProducts,
   createProduct,
   updateProduct,
   deleteProduct

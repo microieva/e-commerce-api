@@ -3,8 +3,10 @@ import mongoose from "mongoose";
 import ProductsRepo from "../models/Product";
 import { Product, ProductDTO, ProductToCreate } from "../types/product";
 import CategoryRepo from "../models/Category";
+import OrdersRepo from "../models/Order";
 import { Category } from "../types/category";
 import { OrderRequest } from "../types/order";
+import OrdersService from "./ordersService";
 
 async function getProducts() {
   const products = await ProductsRepo.find().populate("category").exec(); 
@@ -25,6 +27,29 @@ async function getFilteredProductsByTitle(title:string) {
 async function getProductsByCategoryId(categoryId: string){
   const products = await ProductsRepo.find([categoryId]).populate("category").exec();
   return products;
+}
+
+async function getMostRecentlyOrderedProducts(){
+  const recentOrders = await OrdersRepo.find()
+    .sort({ createdAt: -1 })
+    .limit(4);
+
+  let recentItems: any[] = [];
+
+  if (recentOrders.length>0) {
+    await Promise.all(recentOrders.map(async (order) => {
+      const items = await OrdersService.getOrderItems(order._id.toString());
+      recentItems = recentItems.concat(items); 
+      const set = new Set(recentItems);
+      recentItems = Array.from(set).slice(0,4);
+    }));
+    
+  } 
+  if (recentItems.length < 4 ){
+    const products = await ProductsRepo.find().limit(4-recentItems.length).populate("category").exec();
+    recentItems = recentItems.concat(products); 
+  }
+  return recentItems;
 }
 
 async function createProduct(product: ProductToCreate) {
@@ -99,6 +124,7 @@ export default {
   getProducts,
   getProductById,
   getFilteredProductsByTitle,
+  getMostRecentlyOrderedProducts,
   createProduct,
   updateProduct,
   deleteProduct,
